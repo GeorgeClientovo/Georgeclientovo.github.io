@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Clientovo | Client onboarding without the chase</title>
+<meta name="description" content="Clientovo helps agencies collect client information, files and access details without endless chasing.">
+<style>
+:root{--ink:#17243c;--muted:#6d7686;--blue:#2468ef;--pale:#f6f8fc;--line:#e4e8ef}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink);background:#fff}a{text-decoration:none;color:inherit}.wrap{max-width:1060px;margin:auto;padding:0 24px}.nav{height:78px;display:flex;align-items:center;justify-content:space-between}.brand{font-weight:800;font-size:24px}.links{display:flex;gap:28px;align-items:center;font-size:14px}.btn{display:inline-block;padding:12px 18px;border-radius:7px;border:1px solid var(--line);font-weight:700;font-size:14px}.primary{background:var(--blue);color:#fff;border-color:var(--blue)}.eyebrow{text-transform:uppercase;letter-spacing:.18em;font-size:11px;font-weight:800;color:#5c75aa}.hero{display:grid;grid-template-columns:1fr 1fr;gap:65px;align-items:center;padding:80px 0 100px}.hero h1{font-size:48px;line-height:1.04;margin:18px 0}.lead{color:var(--muted);line-height:1.65;max-width:540px}.actions{display:flex;gap:12px;margin-top:26px}.demo,.card{border:1px solid var(--line);border-radius:12px;background:#fff}.demo{padding:24px;box-shadow:0 18px 45px rgba(30,45,70,.08)}.demo-top{display:flex;justify-content:space-between;border-bottom:1px solid var(--line);padding-bottom:15px}.pill{background:#edf3ff;color:#4770bf;width:42px;height:42px;border-radius:50%;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;text-align:center;line-height:1;padding:0;flex:0 0 42px}.missing{font-size:11px;color:#d64545;font-weight:800;margin:18px 0 8px}.demo ul{padding-left:18px;line-height:1.9;color:#d64545}.reminder{margin-top:16px;padding:12px;background:var(--pale);font-size:12px}.reminder-label{font-weight:400;margin-bottom:6px}.reminder-row{display:flex;align-items:center;justify-content:space-between;gap:12px}.scheduled{color:var(--blue);font-weight:700}.section{padding:92px 0}.soft{background:var(--pale)}.center{text-align:center}.section h2{font-size:36px;line-height:1.1;margin:12px 0 42px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.card{padding:25px}.num{font-size:12px;color:#5875b4;font-weight:800}.card h3{margin:12px 0 8px;font-size:17px}.card p{margin:0;color:var(--muted);line-height:1.55}.strip{margin-top:32px;padding:18px;text-align:center;background:#eaf1ff;border-radius:8px}.feature-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--line)}.feature{background:#fff;padding:24px}.feature h3{font-size:16px;margin:0 0 9px}.feature p{color:var(--muted);margin:0;line-height:1.5}.difference{background:linear-gradient(135deg,#143968,#0f2a51);color:#fff;border-radius:4px;padding:65px 40px}.difference .eyebrow{color:#b9ccf7}.compare{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:30px}.compare>div{border:1px solid rgba(255,255,255,.25);border-radius:12px;padding:25px}.compare .with{background:#fff;color:var(--ink)}.compare ul{list-style:none;padding:0;margin:12px 0;line-height:1.75}.audiences{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}.tag{padding:10px 16px;background:var(--pale);border-radius:7px}.roi{display:grid;grid-template-columns:1.2fr .8fr;gap:60px;align-items:center}.roi-box p{margin:7px 0;color:var(--muted)}.saving{margin-top:18px;background:#eaf1ff;padding:14px;border-radius:7px;font-weight:700}.pricing{display:grid;grid-template-columns:1fr 1fr;gap:22px;max-width:850px;margin:auto}.price{padding:30px;border:1px solid var(--line);border-radius:12px}.price.pop{background:linear-gradient(135deg,#132e55,#1c4d8c);color:#fff}.price h3{font-size:30px;margin:12px 0 20px}.price ul{list-style:none;padding:0;line-height:1.9}.small{font-size:12px;text-transform:uppercase;letter-spacing:.12em}.signup{max-width:620px;margin:auto;text-align:center}.form{margin-top:30px;padding:20px;border:1px solid var(--line);border-radius:12px;background:#fff}.form input,.form select,.form textarea{width:100%;padding:14px;margin:6px 0;border:1px solid var(--line);border-radius:6px;font:inherit}.form textarea{min-height:105px;resize:vertical}.form button{width:100%;margin-top:8px}.cta{margin:30px auto 0;max-width:1060px;background:linear-gradient(135deg,#1165f5,#054dd3);color:#fff;text-align:center;padding:70px 24px}.cta h2{margin:0 0 14px}.footer{display:flex;justify-content:space-between;padding:28px 24px;color:#667085;font-size:13px;max-width:1060px;margin:auto}
+
+.btn{transition:transform .18s ease,box-shadow .18s ease,background-color .18s ease,border-color .18s ease}
+.btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(36,104,239,.22)}
+.links>a:not(.btn){transition:color .18s ease,text-shadow .18s ease}
+.links>a:not(.btn):hover{color:var(--blue);text-shadow:0 0 12px rgba(36,104,239,.55)}
+.roi-box{font-size:13px}
+.roi-box h3{font-size:17px}
+.saving{font-size:13px}
+.saving-title{display:inline-block;background:var(--blue);color:#fff;padding:6px 9px;border-radius:5px;margin-bottom:7px;font-size:11px;letter-spacing:.04em}
+.contact{padding:65px 24px;text-align:center;border-top:1px solid var(--line)}
+.contact-inner{max-width:650px;margin:auto}
+.contact h2{font-size:30px;margin:0 0 12px}
+.contact p{color:var(--muted);line-height:1.6;margin:0 auto 22px}
+
+
+.demo-sub{font-size:11px;color:var(--muted);margin-top:4px}
+.progress{height:7px;background:#edf1f7;border-radius:20px;margin-top:18px;overflow:hidden}
+.progress span{display:block;width:74%;height:100%;background:var(--blue);border-radius:20px}
+.bad-list li,.good-list li{position:relative;padding-left:24px}
+.bad-list li:before,.good-list li:before{position:absolute;left:0;font-weight:900}
+.bad-list li:before{content:"×";color:#ff8b8b}
+.good-list li:before{content:"✓";color:var(--blue)}
+.calculator label{display:block;font-size:12px;font-weight:700;margin:12px 0;color:var(--ink)}
+.calculator input{width:100%;margin-top:6px;padding:10px 11px;border:1px solid var(--line);border-radius:6px;font:inherit;color:var(--ink)}
+.calc-results{border-top:1px solid var(--line);margin-top:16px;padding-top:10px}
+.calc-results strong{color:var(--ink)}
+
+
+@media(max-width:980px) and (min-width:761px){
+  .wrap{padding:0 32px}
+  .hero{gap:35px;padding:60px 0 80px}
+  .hero h1{font-size:42px}
+  .roi{gap:35px}
+  .links{gap:18px}
+}
+
+@media(max-width:760px){
+      .wrap{padding:0 18px}
+      .nav{height:70px}
+      .brand{font-size:22px}
+      .links{gap:10px}
+      .links a:not(.btn){display:none}
+      .links .btn{padding:10px 13px;font-size:13px}
+      .hero,.roi,.pricing,.compare{grid-template-columns:1fr}
+      .hero{padding:38px 0 60px;gap:30px}
+      .hero h1{font-size:37px;line-height:1.08}
+      .lead{font-size:15px}
+      .actions{flex-direction:column;align-items:stretch}
+      .actions .btn{text-align:center}
+      .section{padding:58px 0}
+      .section h2{font-size:29px}
+      .grid3,.feature-grid{grid-template-columns:1fr}
+      .difference{padding:42px 20px}
+      .demo{padding:20px}
+      .reminder-row{align-items:flex-start}
+      .cta{padding:52px 20px;margin-top:20px}
+      .contact{padding:52px 18px}
+      .footer{flex-direction:column;gap:8px;padding:24px 18px}
+      .form{padding:16px}
+    }
+</style>
+</head>
+<body>
+<header class="wrap"><nav class="nav"><a class="brand" href="#">Clientovo</a><div class="links"><a href="#how">How it works</a><a href="#features">Features</a><a href="#service">Get started</a><a class="btn primary" href="#contact">Contact Us</a></div></nav></header>
+<main>
+<section class="wrap hero"><div><div class="eyebrow">Client onboarding, handled for you</div><h1>Stop chasing clients for files, access details and information.</h1><p class="lead">Clientovo collects everything you need from new clients, follows up when something is missing, and turns it into a clean project brief for your team.</p><div class="actions"><a class="btn primary" href="#start">Get started</a><a class="btn" href="#how">See How It Works</a></div></div><div class="demo"><div class="demo-top"><div><strong>Acme Marketing</strong><div class="demo-sub">Website redesign onboarding</div></div><span class="pill">74%</span></div><div class="progress"><span></span></div><div class="missing">MISSING</div><ul><li>Brand guidelines</li><li>Google Analytics access</li><li>Team headshots</li></ul><div class="reminder"><div class="reminder-label">NEXT FOLLOW-UP</div><div class="reminder-row"><strong>Tomorrow, 10:00 AM</strong><span class="scheduled">Scheduled</span></div></div></div></section>
+<section class="section soft"><div class="wrap center"><div class="eyebrow">The problem</div><h2>Client onboarding shouldn’t take 27 emails.</h2><div class="grid3"><div class="card"><span class="num">01</span><h3>Clients forget things</h3><p>Files, access details and information often arrive across multiple emails and messages.</p></div><div class="card"><span class="num">02</span><h3>Your team wastes time chasing</h3><p>Account managers spend hours following up for missing information.</p></div><div class="card"><span class="num">03</span><h3>Projects start late</h3><p>Missing assets and access details delay work before it even begins.</p></div></div></div></section>
+<section id="how" class="section"><div class="wrap center"><div class="eyebrow">How it works</div><h2>One link. Everything collected.</h2><div class="grid3"><div class="card"><span class="num">01</span><h3>Send one onboarding link</h3><p>Create a client onboarding request and send the customer one simple branded link.</p></div><div class="card"><span class="num">02</span><h3>Clientovo collects everything</h3><p>Clients complete forms, upload files and provide the information your team needs.</p></div><div class="card"><span class="num">03</span><h3>Clientovo does the chasing</h3><p>If something is missing, Clientovo follows up so your team doesn’t have to.</p></div></div><div class="strip">Once everything is collected, Clientovo turns it into a clean client brief for your team.</div></div></section>
+<section id="features" class="section"><div class="wrap center"><div class="eyebrow">Features</div><h2>Everything you need to make onboarding painless.</h2><div class="feature-grid" style="text-align:left"><div class="feature"><h3>Client follow-ups</h3><p>Clientovo follows up when information is missing, taking the chasing off your team’s plate.</p></div><div class="feature"><h3>Custom onboarding forms</h3><p>Create different onboarding processes for different services.</p></div><div class="feature"><h3>File collection</h3><p>Keep client assets and documents in one organised place.</p></div><div class="feature"><h3>Progress tracking</h3><p>See exactly what each client has completed and what is still missing.</p></div><div class="feature"><h3>Structured client briefs</h3><p>Turn onboarding responses into a clear, organised project brief for your team.</p></div><div class="feature"><h3>Organised handover</h3><p>Receive completed onboarding information in a clear format that fits into your existing agency workflow.</p></div></div></div></section>
+<section class="wrap"><div class="difference center"><div class="eyebrow">The difference</div><h2>Less chasing. Faster projects.</h2><div class="compare" style="text-align:left"><div><div class="small">Without Clientovo</div><ul class="bad-list"><li>15+ onboarding emails</li><li>Manually chasing clients</li><li>Files stored everywhere</li><li>Missing information</li><li>Staff manually creating briefs</li></ul></div><div class="with"><div class="small">With Clientovo</div><ul class="good-list"><li>One onboarding link</li><li>Client follow-ups handled</li><li>Everything organised</li><li>Completion tracking</li><li>Structured client briefs</li></ul></div></div></div></section>
+<section class="section center"><div class="wrap"><h2>Built for agencies that are tired of chasing clients.</h2><p class="lead" style="margin:0 auto 25px">If your team regularly needs files, access details, questionnaires or project information from new clients, Clientovo can handle the boring part.</p><div class="audiences"><span class="tag">Marketing Agencies</span><span class="tag">Web Design Agencies</span><span class="tag">Creative Agencies</span><span class="tag">Branding Agencies</span></div></div></section>
+<section class="section soft"><div class="wrap roi"><div><div class="eyebrow">The ROI</div><h2 style="margin-bottom:18px">See what onboarding is costing you.</h2><p class="lead">Use your own numbers to estimate how much agency time is being spent on client onboarding admin each month.</p></div><div class="card roi-box calculator"><h3>Agency onboarding estimate</h3><label>Clients onboarded per month<input id="clients" type="number" min="0" step="1" value="12"></label><label>Admin time per client (hours)<input id="hours" type="number" min="0" step="0.1" value="1.5"></label><label>Average staff cost per hour (£)<input id="rate" type="number" min="0" step="1" value="20"></label><div class="calc-results"><p>Time spent onboarding: <strong><span id="totalHours">18</span> hours</strong></p><p>Estimated monthly admin cost: <strong>£<span id="totalCost">360</span></strong></p></div></div></div></section>
+<section id="service" class="section"><div class="wrap"><div class="center"><div class="eyebrow">Get started</div><h2>Take client onboarding off your team’s plate.</h2><p class="lead" style="margin:0 auto 28px">Clientovo manages the repetitive work behind your client onboarding, from collecting information and files to following up when something is missing. Tell us how your agency currently onboards clients and we’ll show you how Clientovo can fit into your process.</p></div></div></section>
+<section id="start" class="section soft"><div class="wrap signup"><h2 style="margin-bottom:12px">Get started to Clientovo.</h2><p class="lead">Give us a few details about your current onboarding process. We’ll get in touch to understand how you work and set up a Clientovo onboarding process around your agency.</p><form class="form" onsubmit="event.preventDefault();alert('Thanks — your request has been noted. Form delivery is not connected yet.')"><input required placeholder="Name"><input required type="email" placeholder="Work Email"><input required placeholder="Agency Name"><input placeholder="Agency Website"><input required type="number" min="1" placeholder="Clients onboarded per month"><textarea required placeholder="How do you currently onboard clients?"></textarea><textarea required placeholder="What’s the biggest problem with your current process?"></textarea><button class="btn primary" type="submit">Request a setup call</button></form></div></section>
+<section class="cta"><h2>Spend less time chasing clients.</h2><p>Let Clientovo handle the boring part of onboarding so your team can focus on the work clients actually pay you for.</p></section>
+
+<section id="contact" class="contact">
+  <div class="contact-inner">
+    <h2>Ready to simplify your client onboarding?</h2>
+    <p>Whether you have a question about Clientovo or want to see how it could fit your agency, get in touch and we’ll be happy to help.</p>
+    <a class="btn primary" href="mailto:contact@clientovo.com">contact@clientovo.com</a>
+  </div>
+</section>
+
+</main>
+<footer class="footer"><strong>Clientovo</strong><span>© 2026 Clientovo. All rights reserved.</span></footer>
+<script>
+function updateROI(){
+  const clients = Math.max(0, parseFloat(document.getElementById('clients').value) || 0);
+  const hours = Math.max(0, parseFloat(document.getElementById('hours').value) || 0);
+  const rate = Math.max(0, parseFloat(document.getElementById('rate').value) || 0);
+  const totalHours = clients * hours;
+  const totalCost = totalHours * rate;
+  document.getElementById('totalHours').textContent = Number.isInteger(totalHours) ? totalHours : totalHours.toFixed(1);
+  document.getElementById('totalCost').textContent = Math.round(totalCost).toLocaleString('en-GB');
+}
+['clients','hours','rate'].forEach(id => document.getElementById(id).addEventListener('input', updateROI));
+updateROI();
+</script>
+</body>
+</html>
