@@ -510,6 +510,24 @@ header{
   }
 }
 
+
+/* Portal links in the main navigation */
+.login-menu{position:relative;font-size:14px;font-weight:700;color:#334155}
+.login-menu summary{list-style:none;cursor:pointer;white-space:nowrap;padding:10px 2px}
+.login-menu summary::-webkit-details-marker{display:none}
+.login-menu summary:after{content:"⌄";display:inline-block;margin-left:6px;font-size:17px;line-height:0;vertical-align:2px;color:#64748b}
+.login-menu[open] summary,.login-menu summary:hover{color:#2563eb}
+.login-menu summary:focus-visible,.login-dropdown a:focus-visible{outline:3px solid #93c5fd;outline-offset:3px;border-radius:5px}
+.login-dropdown{position:absolute;top:calc(100% + 9px);right:-12px;z-index:120;min-width:205px;padding:7px;background:#fff;border:1px solid #e2e8f0;border-radius:13px;box-shadow:0 16px 40px rgba(15,23,42,.15)}
+.login-dropdown a{display:block;padding:11px 12px;border-radius:8px;color:#334155;font-weight:650;white-space:nowrap}
+.login-dropdown a:hover{background:#eff6ff;color:#1d4ed8}
+.mobile-menu .mobile-menu-label{display:block;padding:14px 14px 5px;margin-top:6px;border-top:1px solid #e2e8f0;color:#64748b;font-size:11px;font-weight:800;letter-spacing:.1em}
+
+
+@media (min-width:761px) and (max-width:900px){
+  .desktop-links{gap:12px}
+  .desktop-links>a[href="#features"],.desktop-links>a[href="index.html#features"]{display:none}
+}
 </style>
 </head>
 <body>
@@ -521,6 +539,13 @@ header{
     <a href="how-it-works.html">How it works</a>
     <a href="#features">What we handle</a>
     <a href="#contact">Contact</a>
+    <details class="login-menu" id="loginMenu">
+      <summary>Log in</summary>
+      <div class="login-dropdown">
+        <a href="https://clientovo-app.vercel.app/login">Clientovo staff</a>
+        <a href="https://clientovo-app.vercel.app/agency/login">Agencies</a>
+      </div>
+    </details>
     <a class="btn primary" href="#start">Book a Free Setup Call</a>
   </div>
 
@@ -533,6 +558,9 @@ header{
     <a href="how-it-works.html">How It Works</a>
     <a href="#features">What We Handle</a>
     <a href="#contact">Contact</a>
+    <span class="mobile-menu-label">PORTAL SIGN-IN</span>
+    <a href="https://clientovo-app.vercel.app/login">Clientovo staff login</a>
+    <a href="https://clientovo-app.vercel.app/agency/login">Agency portal login</a>
     <a class="mobile-menu-cta" href="#start">Book a Free Setup Call</a>
   </div>
 </nav>
@@ -628,6 +656,17 @@ if (mobileMenuButton && mobileMenu) {
       mobileMenuButton.classList.remove('open');
       mobileMenuButton.setAttribute('aria-expanded', 'false');
     }
+  });
+}
+
+
+const loginMenu = document.getElementById('loginMenu');
+if (loginMenu) {
+  document.addEventListener('click', function(event) {
+    if (loginMenu.open && !loginMenu.contains(event.target)) loginMenu.open = false;
+  });
+  document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') loginMenu.open = false;
   });
 }
 
