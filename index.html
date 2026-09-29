@@ -295,7 +295,7 @@ header{
 
 .mobile-menu-button,.mobile-menu{display:none}
 
-@media(max-width:760px){
+@media(max-width:900px){
   .desktop-links{display:none!important}
 
   .nav{position:relative}
@@ -545,6 +545,21 @@ header{
   .hero h1{max-width:960px;margin:18px auto 20px;font-size:clamp(48px,4.5vw,62px);line-height:1.04}
   .hero .lead{max-width:760px;margin-left:auto;margin-right:auto}
   .hero:before{right:30px;top:-120px;width:440px;height:440px}
+}
+
+/* Shared navigation dimensions across every public page. */
+header .nav.wrap{height:82px;max-width:1160px;padding-left:28px;padding-right:28px;gap:24px}
+header .brand{display:flex;align-items:center;gap:10px;flex:0 0 auto;font-size:25px;font-weight:800;letter-spacing:-.035em;white-space:nowrap}
+header .brand img{width:34px;height:34px;flex:0 0 34px;border-radius:10px}
+header .desktop-links{display:flex;align-items:center;gap:30px;font-size:14px;font-weight:600;color:#334155}
+header .desktop-links>.btn{display:inline-flex;align-items:center;justify-content:center;min-height:45px;padding:12px 19px;border-radius:12px;font-size:14px;font-weight:700;white-space:nowrap}
+@media(min-width:901px) and (max-width:980px){header .desktop-links{gap:18px}}
+@media(max-width:900px){
+  header .nav.wrap{height:68px;width:100%;max-width:none;padding-left:18px;padding-right:18px;gap:10px}
+  header .brand{gap:8px;font-size:20px;min-width:0}
+  header .brand img{width:29px;height:29px;flex-basis:29px;border-radius:9px}
+  header .desktop-links{display:none!important}
+  header .mobile-menu-button{margin-left:auto;width:42px;height:42px;flex:0 0 42px}
 }
 </style>
 </head>
