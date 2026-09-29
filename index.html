@@ -522,6 +522,7 @@ header{
 .login-menu[open] summary,.login-menu summary:hover{color:#2563eb}
 .login-menu summary:focus-visible,.login-dropdown a:focus-visible{outline:3px solid #93c5fd;outline-offset:3px;border-radius:5px}
 .login-dropdown{position:absolute;top:calc(100% + 9px);right:-12px;z-index:120;min-width:205px;padding:7px;background:#fff;border:1px solid #e2e8f0;border-radius:13px;box-shadow:0 16px 40px rgba(15,23,42,.15)}
+.login-dropdown-label{display:block;padding:10px 12px 5px;color:#2563eb;font-size:11px;font-weight:850;text-transform:uppercase;letter-spacing:.09em}
 .login-dropdown a{display:block;padding:11px 12px;border-radius:8px;color:#334155;font-weight:650;white-space:nowrap}
 .login-dropdown a:hover{background:#eff6ff;color:#1d4ed8}
 .mobile-menu .mobile-menu-label{display:block;padding:14px 14px 5px;margin-top:6px;border-top:1px solid #e2e8f0;color:#64748b;font-size:11px;font-weight:800;letter-spacing:.1em}
@@ -575,8 +576,9 @@ header .desktop-links>.btn{display:inline-flex;align-items:center;justify-conten
     <details class="login-menu" id="loginMenu">
       <summary>Log in</summary>
       <div class="login-dropdown">
-        <a href="https://clientovo-app.vercel.app/login">Clientovo staff</a>
-        <a href="https://clientovo-app.vercel.app/agency/login">Agencies</a>
+        <span class="login-dropdown-label">Customer Portal</span>
+        <a href="https://clientovo-app.vercel.app/agency/login">Agency</a>
+        <a href="https://clientovo-app.vercel.app/login">Staff</a>
       </div>
     </details>
     <a class="btn primary" href="#setup-call">Book a Free Setup Call</a>
@@ -590,9 +592,9 @@ header .desktop-links>.btn{display:inline-flex;align-items:center;justify-conten
     <a href="index.html" class="active-mobile-link">Home</a>
     <a href="how-it-works.html">The Process</a>
     <a href="contact.html">Contact Us</a>
-    <span class="mobile-menu-label">PORTAL SIGN-IN</span>
-    <a href="https://clientovo-app.vercel.app/login">Clientovo staff login</a>
-    <a href="https://clientovo-app.vercel.app/agency/login">Agency portal login</a>
+    <span class="mobile-menu-label">CUSTOMER PORTAL</span>
+    <a href="https://clientovo-app.vercel.app/agency/login">Agency</a>
+    <a href="https://clientovo-app.vercel.app/login">Staff</a>
     <a class="mobile-menu-cta" href="#setup-call">Book a Free Setup Call</a>
   </div>
 </nav>
