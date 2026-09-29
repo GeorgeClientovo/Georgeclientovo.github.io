@@ -81,7 +81,7 @@ footer{border-top:1px solid var(--line);padding:27px 0;color:#64748b;font-size:1
 
 .mobile-menu-button,.mobile-menu{display:none}
 
-@media(max-width:800px){
+@media(max-width:900px){
   .desktop-links{display:none!important}
   .nav{position:relative}
 
@@ -177,6 +177,21 @@ footer{border-top:1px solid var(--line);padding:27px 0;color:#64748b;font-size:1
 .portal-preview{border:2px dashed #93b4ed;border-radius:22px;padding:15px;background:#f4f8ff}.portal-preview figcaption{display:grid;gap:5px;text-align:center;color:#334155;font-size:.9rem;margin:0 0 15px}.portal-preview figcaption strong{font-size:1.1rem;color:#12366e}.portal-preview-inner{box-shadow:none}.preview-banner{display:flex;align-items:center;gap:12px;padding:13px 15px;border-radius:10px;background:#eaf2ff;border:1px solid #b8d4ff;color:#12366e;margin-bottom:19px;font-size:.84rem}.preview-banner strong{background:#1d4ed8;color:#fff;border-radius:5px;padding:5px 8px;white-space:nowrap;font-size:.73rem;letter-spacing:.07em}.sample-submit{opacity:.7;cursor:default}.sample-submit span{font-size:.75rem;font-weight:500}@media(max-width:620px){.preview-banner{align-items:flex-start;flex-direction:column}}
 
 .agency-steps{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;max-width:920px;margin:auto}.agency-step{background:#fff;border:1px solid var(--line);border-radius:18px;padding:26px;position:relative}.agency-step h3{font-size:21px;margin:12px 0 8px;letter-spacing:-.02em}.agency-step p{color:var(--muted);font-size:14px;line-height:1.65;margin:0 0 22px}.step-count{font-size:13px;color:var(--blue);font-weight:850}.step-owner{display:inline-block;border-radius:999px;background:#eff6ff;color:#1d4ed8;font-size:11px;font-weight:800;padding:7px 10px}.step-owner.clientovo-owner{background:#f0fdf4;color:#166534}.portal-benefits{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;max-width:740px;margin:24px auto 0}.portal-benefits>div{background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px}.portal-benefits p{color:var(--muted);font-size:14px;line-height:1.6;margin:8px 0 0}.sample-questions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px;max-width:900px;margin:auto}.sample-questions>div{border:1px solid var(--line);border-radius:15px;padding:22px}.sample-questions strong{display:block;margin:10px 0 8px}.sample-questions p{color:var(--muted);font-size:14px;line-height:1.55;margin:0}.sample-note{color:var(--muted);text-align:center;max-width:780px;line-height:1.65;margin:25px auto 0}.secondary-link{font-size:14px;margin:20px auto 0!important}.secondary-link a{color:var(--blue);font-weight:700}.secondary-link a:hover{text-decoration:underline}@media(max-width:700px){.agency-steps,.portal-benefits,.sample-questions{grid-template-columns:1fr}.hero .actions{flex-direction:column;align-items:center}.agency-step{padding:22px}}
+
+/* Shared navigation dimensions across every public page. */
+header .nav.wrap{height:82px;max-width:1160px;padding-left:28px;padding-right:28px;gap:24px}
+header .brand{display:flex;align-items:center;gap:10px;flex:0 0 auto;font-size:25px;font-weight:800;letter-spacing:-.035em;white-space:nowrap}
+header .brand img{width:34px;height:34px;flex:0 0 34px;border-radius:10px}
+header .desktop-links{display:flex;align-items:center;gap:30px;font-size:14px;font-weight:600;color:#334155}
+header .desktop-links>.btn{display:inline-flex;align-items:center;justify-content:center;min-height:45px;padding:12px 19px;border-radius:12px;font-size:14px;font-weight:700;white-space:nowrap}
+@media(min-width:901px) and (max-width:980px){header .desktop-links{gap:18px}}
+@media(max-width:900px){
+  header .nav.wrap{height:68px;width:100%;max-width:none;padding-left:18px;padding-right:18px;gap:10px}
+  header .brand{gap:8px;font-size:20px;min-width:0}
+  header .brand img{width:29px;height:29px;flex-basis:29px;border-radius:9px}
+  header .desktop-links{display:none!important}
+  header .mobile-menu-button{margin-left:auto;width:42px;height:42px;flex:0 0 42px}
+}
 </style>
 </head><body>
 <header>
