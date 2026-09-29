@@ -537,6 +537,15 @@ header{
 @media(max-width:760px){.hero{grid-template-columns:1fr}}
 .agency-guide-link{margin:22px 0 0;color:#475569}.agency-guide-link a{font-weight:750;color:#1d4ed8;text-decoration:underline;text-underline-offset:3px}
 .hero{overflow:hidden}
+
+/* Keep the desktop opening compact and let its background fade within the page. */
+@media (min-width:761px){
+  .hero{grid-template-columns:minmax(0,1fr);gap:0;padding:68px 24px 76px;overflow:visible}
+  .hero > div:first-child{width:100%;max-width:960px;margin:0 auto}
+  .hero h1{max-width:960px;margin:18px auto 20px;font-size:clamp(48px,4.5vw,62px);line-height:1.04}
+  .hero .lead{max-width:760px;margin-left:auto;margin-right:auto}
+  .hero:before{right:30px;top:-120px;width:440px;height:440px}
+}
 </style>
 </head>
 <body>
