@@ -34,8 +34,8 @@
   .home-page .hero{display:block;padding:48px var(--mobile-gutter) 44px;overflow:visible;text-align:left}
   .home-page .hero::before{display:none}
   .home-page .hero>div{display:flex;flex-direction:column;align-items:stretch;min-width:0}
-  .home-page .hero .eyebrow{order:0;max-width:28ch}
-  .home-page .hero h1{order:1;font-size:clamp(33px,9.3vw,43px);font-weight:750;line-height:1.1;letter-spacing:-.055em;margin:19px 0 22px;max-width:13ch;text-wrap:balance}
+  .home-page .hero .eyebrow{order:0;max-width:100%}
+  .home-page .hero h1{order:1;font-size:clamp(33px,9.3vw,43px);font-weight:750;line-height:1.1;letter-spacing:-.055em;margin:19px 0 22px;max-width:100%;text-wrap:balance}
   .home-page .hero h1 .hero-blue{color:#2563eb}
   .home-page .hero .desktop-lead{display:none}
   .home-page .hero .mobile-lead{order:2;display:block;max-width:35ch;margin:0;font-size:16px;line-height:1.7;color:#59677b}
