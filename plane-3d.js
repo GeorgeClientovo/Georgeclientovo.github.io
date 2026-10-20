@@ -104,8 +104,9 @@
    const anim=flight.getAnimations().find(a=>a.animationName==='promo-flyby');
    const duration=anim?.effect.getComputedTiming().duration||13000;
    const time=Number(anim?.currentTime||0)/1000,p=Math.min(time/(duration/1000),1);
-   const rollProgress=Math.max(0,Math.min(1,(p-.44)/.12));
-   const roll=rollProgress*Math.PI*2;
+   const rollProgress=Math.max(0,Math.min(1,(p-.35)/.30));
+   const easedRoll=rollProgress*rollProgress*(3-2*rollProgress);
+   const roll=easedRoll*Math.PI*2;
    const bank=Math.sin(time*1.4)*.055+Math.sin(time*.65)*.035;
    const pitch=Math.cos(time*1.4)*.025+Math.cos(time*.65)*.016;
    const dpr=Math.min(window.devicePixelRatio||1,2),w=Math.round(shell.clientWidth*dpr),h=Math.round(shell.clientHeight*dpr);
