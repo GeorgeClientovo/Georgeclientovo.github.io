@@ -8,7 +8,7 @@
 <link rel="shortcut icon" href="/favicon.ico?v=6"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png?v=6"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png?v=6"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=1"><link rel="manifest" href="/site.webmanifest">
 <meta name="theme-color" content="#255FE8">
 <link rel="preload" href="/fonts/newsreader-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="/fonts/ibm-plex-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/home.css?v=20261020e">
+<link rel="stylesheet" href="/home.css?v=20261020f">
 <meta property="og:type" content="website"><meta property="og:locale" content="en_GB"><meta property="og:site_name" content="Clientovo"><meta property="og:title" content="How Managed Agency Client Onboarding Works | Clientovo"><meta property="og:description" content="From client signed to ready to start: see the complete managed onboarding process."><meta property="og:url" content="https://clientovo.com/how-it-works.html"><meta property="og:image" content="https://clientovo.com/og-image.png">
 <meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://clientovo.com/og-image.png">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Clientovo","url":"https://clientovo.com/","email":"contact@clientovo.com"}</script>
@@ -24,7 +24,7 @@
     </a>
     <div class="nav-links">
       <a href="/how-it-works.html">How it works</a>
-      <a href="/index.html#pricing">Pricing</a>
+      <a href="/#pricing">Pricing</a>
       <a href="/contact.html">Contact</a>
     </div>
     <div class="nav-actions">
@@ -35,7 +35,7 @@
           <a href="https://app.clientovo.com/login">Staff portal <span class="external-mark" aria-hidden="true">↗</span></a>
         </div>
       </div>
-      <a class="button" href="https://app.clientovo.com/agency/join">Try Clientovo free</a>
+      <a class="button" href="/#setup-call">Book a Free Setup Call</a>
     </div>
     <button class="menu-button" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu" data-menu-button>Menu</button>
   </nav>
@@ -43,11 +43,12 @@
 <div class="mobile-menu" id="mobile-menu" data-mobile-menu hidden>
   <nav class="mobile-menu-inner" aria-label="Mobile navigation">
     <a href="/how-it-works.html">How it works</a>
-    <a href="/index.html#pricing">Pricing</a>
+    <a href="/#pricing">Pricing</a>
     <a href="/contact.html">Contact</a>
     <a href="https://app.clientovo.com/agency/login">Agency portal <span class="external-mark" aria-hidden="true">↗</span></a>
     <a href="https://app.clientovo.com/login">Staff portal <span class="external-mark" aria-hidden="true">↗</span></a>
-    <a class="button" href="https://app.clientovo.com/agency/join">Try Clientovo free</a>
+    <a href="https://app.clientovo.com/agency/join">Try Clientovo free <span class="external-mark" aria-hidden="true">↗</span></a>
+    <a class="button" href="/#setup-call">Book a Free Setup Call</a>
   </nav>
 </div>
 <main id="main">
@@ -80,37 +81,36 @@
   </section>
 
   <section class="section section-tint">
-    <div class="shell portal-section">
-      <div>
-        <p class="kicker">Inside your portal</p>
-        <h2>Submitting a client is straightforward</h2>
-        <p style="margin-top:18px">This is an example of the information your agency enters. It is a preview, not a working form.</p>
-        <figure class="mock-form" style="margin-top:32px">
-          <!-- TODO: George to supply /images/submit-client-screen.webp at 1440×1200 (2x export). Replace this temporary preview when supplied. -->
-          <figcaption class="mock-form-header"><strong>Example portal screen.</strong> Sign in to your agency portal to submit a real client.</figcaption>
-          <div class="mock-form-body">
-            <h3>Submit a new client</h3>
-            <div class="mock-field"><strong>Client contact name</strong><div class="mock-value">Jamie Example</div></div>
-            <div class="mock-field"><strong>Client company</strong><div class="mock-value">Example Company</div></div>
-            <div class="mock-field"><strong>Client email</strong><div class="mock-value">jamie@example.com</div></div>
-            <div class="mock-field"><strong>Onboarding template</strong><div class="mock-value">Website project template</div></div>
-            <div class="mock-field"><strong>Anything we should know? (optional)</strong><div class="mock-value">The client already has brand guidelines. Target launch in November.</div></div>
-            <button class="button" type="button" disabled>Submit client to Clientovo (preview only)</button>
-            <p class="small">We review the request before emailing the client. The details above are examples. This form cannot be submitted here.</p>
-          </div>
-        </figure>
+    <div class="shell">
+      <div class="portal-section">
+        <div>
+          <p class="kicker">Inside your portal</p>
+          <h2>Submitting a client is straightforward</h2>
+          <p style="margin-top:18px">This is an example of the information your agency enters. It is a preview, not a working form. We review the request before emailing the client.</p>
+        </div>
+        <aside class="portal-notes">
+          <div class="portal-note"><h3>For each submission</h3><p>See the completion percentage and whether we are waiting on the client, reviewing the answers or preparing handover.</p></div>
+          <div class="portal-note"><h3>Your own templates</h3><p>Each agency sees and edits only the templates it has created.</p></div>
+        </aside>
       </div>
-      <!-- TODO: George to supply /images/client-progress.webp at 1440×1000 and /images/template-editor.webp at 1440×1000 (2x exports). -->
-      <aside class="portal-notes">
-        <div class="portal-note"><h3>For each submission</h3><p>See the completion percentage and whether we are waiting on the client, reviewing the answers or preparing handover.</p></div>
-        <div class="portal-note"><h3>Your own templates</h3><p>Each agency sees and edits only the templates it has created.</p></div>
-      </aside>
+      <figure class="shot">
+        <img src="/images/submit-client.webp" width="2400" height="1640" alt="Agency portal screen for submitting a new client, filled with example details for Sarah Mitchell at Bramley Bakery, beside an ongoing SEO onboarding for Daniel Okonkwo." loading="lazy">
+        <figcaption>Example portal screen. Sign in to your agency portal to submit a real client. The names, email addresses and notes shown here are examples.</figcaption>
+      </figure>
+      <figure class="shot">
+        <img src="/images/template-builder.webp" width="2400" height="1640" alt="Template builder in the agency portal, with example templates for a website project, SEO onboarding and brand guidelines, and a written-answer question being edited." loading="lazy">
+        <figcaption>Example template builder. Each agency sees and edits only the templates it has created.</figcaption>
+      </figure>
+      <figure class="shot shot-narrow">
+        <img src="/images/client-onboarding.webp" width="1760" height="1720" alt="The private onboarding page a client sees, welcoming Sarah from Bramley Bakery and asking for brand guidelines on behalf of Northside Creative." loading="lazy">
+        <figcaption>What your client sees on their private onboarding link. Example questions and files.</figcaption>
+      </figure>
     </div>
   </section>
 
   <section class="section">
     <div class="shell">
-      <div class="section-heading"><h2>Before and after Clientovo</h2><p>The point isn’t that the client journey gets shorter. The point is that far less of that journey needs your team’s time and attention.</p></div>
+      <div class="section-heading"><h2>Cut the onboarding admin your team has to deal with.</h2><p>The point isn’t that the client journey gets shorter. The point is that far less of that journey needs your team’s time and attention.</p></div>
       <div class="compare-grid">
         <article class="compare-col">
           <h3>Before Clientovo: your team handles the admin</h3>
@@ -142,16 +142,11 @@
       <div class="span-5">
         <p class="kicker">The end result</p>
         <h2>Your team opens one organised handover, not twelve email threads</h2>
-        <p style="margin-top:20px">Once our team has reviewed and approved the responses, we email your agency a link to its handover in the portal. Sign in to view the completed answers and download the report and uploaded files as an organised pack. Below is an illustrative report preview.</p>
+        <p style="margin-top:20px">Once our team has reviewed and approved the responses, we email your agency a link to its handover in the portal. Sign in to view the completed answers and download the report and uploaded files as an organised pack. Below is an example of that report.</p>
       </div>
-      <figure class="report-preview span-7">
-        <!-- TODO: George to supply /images/finished-handover-pack.webp at 1440×1100 (2x export). -->
-        <figcaption class="report-header"><strong>Onboarding report</strong><span class="small muted">Illustrative report preview with example details. Your approved report and files are available through your agency portal.</span></figcaption>
-        <div class="report-meta"><div><strong>Client</strong><br>Jamie Example</div><div><strong>Email</strong><br>jamie@example.com</div><div><strong>Status</strong><br>Complete · 100% of required items</div></div>
-        <div class="report-row"><div><strong>1. Upload your brand guidelines</strong><br><span class="small">Required · Complete</span></div><div>brand-guidelines.pdf</div></div>
-        <div class="report-row"><div><strong>2. What are the main goals for your new website?</strong><br><span class="small">Required · Complete</span></div><div>Make it easier for customers to find our services and send an enquiry.</div></div>
-        <div class="report-row"><div><strong>3. Who is the main project contact?</strong><br><span class="small">Required · Complete</span></div><div>Jamie Example, Marketing Manager</div></div>
-        <p class="small muted" style="padding:20px;margin:0">Example Agency · Example Company · Website project template · Created 29 September 2026 · 3 questions in this onboarding. Private client information. Keep this report and its attachments secure. Open this file in a browser to print or save it as a PDF.</p>
+      <figure class="shot report-shot span-7">
+        <img src="/images/onboarding-report.webp" width="1640" height="1688" alt="Example onboarding report for Sarah Mitchell of Bramley Bakery, website project, created 29 September 2026, with three approved responses including brand guidelines." loading="lazy">
+        <figcaption>Example report for Northside Creative. Sarah Mitchell, Bramley Bakery, website project, created 29 September 2026, three questions. Your approved report and files are available through your agency portal. Private client information. Keep this report and its attachments secure. Open the file in a browser to print or save it as a PDF.</figcaption>
       </figure>
     </div>
   </section>
@@ -173,7 +168,7 @@
   <section class="section cta-band">
     <div class="shell grid-12">
       <div class="span-8"><h2>Let us handle your next client onboarding</h2><p class="lede" style="margin-top:20px">Show us your current process and we’ll explain what Clientovo can take off your team’s plate.</p></div>
-      <div class="span-4"><a class="button button-secondary" href="/index.html#setup-call">Book a free setup call</a></div>
+      <div class="span-4"><a class="button button-secondary" href="/#setup-call">Book a free setup call</a></div>
     </div>
   </section>
 
@@ -193,12 +188,11 @@
       <div class="footer-intro">
         <a class="brand" href="/index.html"><img src="/favicon.png?v=6" alt="" width="32" height="32"><span>Clientovo</span></a>
         <p>Client onboarding, taken care of. Built for marketing agencies.</p>
-        <!-- TODO: George to supply confirmed company registration details and Leeds business address. -->
       </div>
       <nav class="footer-col" aria-label="Explore">
         <h2>Explore</h2>
         <a href="/how-it-works.html">How it works</a>
-        <a href="/index.html#pricing">Pricing</a>
+        <a href="/#pricing">Pricing</a>
         <a href="/contact.html">Contact us</a>
         <a href="https://app.clientovo.com/agency/login">Agency login <span class="external-mark" aria-hidden="true">↗</span></a>
       </nav>
