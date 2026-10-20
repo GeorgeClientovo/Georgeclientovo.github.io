@@ -163,7 +163,8 @@ label{color:#c2d0ed;font-size:.8125rem}.form-privacy{color:#9caed0}
 .promo-tow{display:flex;align-items:center;transform-origin:left center;transform-style:preserve-3d;animation:promo-barrel-roll var(--flight-duration) linear both}
 .promo-plane{display:block;flex:none;width:112px;height:auto}
 .promo-towline{width:34px;flex:none;border-top:1px solid #e0e7ffb3;transform:rotate(-3deg);transform-origin:left}
-.promo-flight-banner{position:relative;flex:none;padding:12px 38px 12px 20px;border:1px solid #ffc28a;border-radius:2px 7px 7px 2px;background:linear-gradient(100deg,#ffb366,#ff9b42);color:#211208;pointer-events:auto;transform-origin:left center;animation:promo-banner-flutter 1.6s ease-in-out infinite}
+.promo-flight-banner{position:relative;flex:none;padding:12px 38px 12px 20px;border:1px solid #ffc28a;border-radius:2px 7px 7px 2px;background:linear-gradient(100deg,#ffb366,#ff9b42);color:#211208;pointer-events:auto;transform-origin:left center;animation:promo-banner-flutter 1.6s ease-in-out infinite,promo-cloth-edge 2.6s ease-in-out infinite;box-shadow:inset 0 1px 1px #fff6,inset 0 -3px 6px #71340830,0 5px 10px #0003;isolation:isolate}
+.promo-flight-banner::before{content:"";position:absolute;inset:0;z-index:-1;border-radius:inherit;pointer-events:none;background:repeating-linear-gradient(100deg,#71340800 0px,#71340808 34px,#71340838 66px,#fff2 98px,#fff5 116px,#71340800 160px,#71340800 220px);background-size:220px 100%;animation:promo-cloth-shading 2.6s linear infinite;animation-play-state:inherit}
 .promo-flight-banner>a,.promo-flight-banner>a:hover{display:block;color:#211208;text-decoration:none;font-size:.875rem;font-weight:600;line-height:1.45;white-space:nowrap}
 .promo-flight-banner>a:focus-visible{outline:2px solid #211208;outline-offset:3px}
 .promo-flight-banner>button{position:absolute;right:5px;top:50%;transform:translateY(-50%);display:grid;place-items:center;min-width:28px;min-height:32px;padding:0;border:0;border-radius:4px;background:transparent;color:#211208;font-size:1.25rem;cursor:pointer}
@@ -173,6 +174,11 @@ label{color:#c2d0ed;font-size:.8125rem}.form-privacy{color:#9caed0}
 @keyframes promo-flyby{from{transform:translateX(100vw)}to{transform:translateX(-100%)}}
 @keyframes promo-flight-drift{0%,100%{transform:translateY(0) rotate(0deg)}15%{transform:translateY(-10px) rotate(.6deg)}32%{transform:translateY(6px) rotate(-.5deg)}49%{transform:translateY(-7px) rotate(.35deg)}65%{transform:translateY(9px) rotate(-.6deg)}83%{transform:translateY(-5px) rotate(.4deg)}}
 @keyframes promo-barrel-roll{0%,35%{transform:rotateX(0deg);animation-timing-function:cubic-bezier(.333333,0,.666667,1)}65%,100%{transform:rotateX(360deg)}}
+@keyframes promo-cloth-shading{from{background-position:0 0}to{background-position:220px 0}}
+@keyframes promo-cloth-edge{
+ 0%,100%{clip-path:polygon(0 4%,18% 2%,38% 7%,58% 2%,78% 6%,100% 0,100% 94%,78% 100%,58% 95%,38% 100%,18% 95%,0 97%)}
+ 50%{clip-path:polygon(0 4%,18% 7%,38% 1%,58% 7%,78% 1%,100% 6%,100% 100%,78% 94%,58% 100%,38% 94%,18% 100%,0 97%)}
+}
 @keyframes promo-banner-flutter{0%,100%{transform:rotate(-1deg)}50%{transform:rotate(1deg)}}
 @media(max-width:600px){
  .promo-flight{--flight-duration:11s;top:122px}
@@ -180,5 +186,5 @@ label{color:#c2d0ed;font-size:.8125rem}.form-privacy{color:#9caed0}
  .promo-flight-banner{padding:10px 34px 10px 14px}
  .promo-flight-banner>a{max-width:255px;white-space:normal;font-size:.75rem}
 }
-@media(prefers-reduced-motion:reduce){.promo-flight{display:none;animation:none}.promo-flight-banner,.promo-aircraft,.promo-tow,.promo-plane-shell{animation:none}}
+@media(prefers-reduced-motion:reduce){.promo-flight{display:none;animation:none}.promo-flight-banner,.promo-flight-banner::before,.promo-aircraft,.promo-tow,.promo-plane-shell{animation:none}}
 @media print{.promo-flight{display:none}}
