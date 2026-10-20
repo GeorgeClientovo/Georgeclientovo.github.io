@@ -111,7 +111,8 @@
    const pitch=Math.cos(time*1.4)*.025+Math.cos(time*.65)*.016;
    const dpr=Math.min(window.devicePixelRatio||1,2),w=Math.round(shell.clientWidth*dpr),h=Math.round(shell.clientHeight*dpr);
    if(canvas.width!==w||canvas.height!==h){canvas.width=w;canvas.height=h;gl.viewport(0,0,w,h);}
-   gl.uniform1f(uniforms.uRoll,roll+bank);gl.uniform1f(uniforms.uPitch,pitch);
+   // WebGL's upward Y axis reverses the visible roll relative to CSS rotateX.
+   gl.uniform1f(uniforms.uRoll,-roll+bank);gl.uniform1f(uniforms.uPitch,pitch);
    gl.uniform1f(uniforms.uSpin,time*32);gl.uniform1f(uniforms.uAspect,w/h);
    gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);gl.drawArrays(gl.TRIANGLES,0,vertices.length/10);
   }
