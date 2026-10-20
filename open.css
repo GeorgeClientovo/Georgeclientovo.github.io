@@ -151,7 +151,7 @@ label{color:#c2d0ed;font-size:.8125rem}.form-privacy{color:#9caed0}
 
 
 /* A one-time plane towing the free-onboarding offer across the viewport. */
-.promo-flight{--flight-duration:13s;perspective:900px;transform-origin:71px 44px;position:fixed;top:clamp(108px,20vh,180px);left:0;z-index:110;display:flex;align-items:center;width:max-content;max-width:none;pointer-events:none;animation:promo-flyby var(--flight-duration) linear both}
+.promo-flight{--flight-shadow-ink:rgba(0,0,0,.46);--flight-shadow-blur:6px;--flight-duration:13s;perspective:900px;transform-origin:71px 44px;position:fixed;top:clamp(108px,20vh,180px);left:0;z-index:110;display:flex;align-items:center;width:max-content;max-width:none;pointer-events:none;animation:promo-flyby var(--flight-duration) linear both}
 .promo-flight[hidden]{display:none}
 .promo-aircraft{display:flex;align-items:center;width:max-content;transform-style:preserve-3d;transform-origin:center;animation:promo-flight-drift var(--flight-duration) ease-in-out both}
 .promo-plane-shell{position:relative;display:block;flex:none;width:142px;height:88px;animation:promo-barrel-roll var(--flight-duration) linear both}
@@ -182,7 +182,7 @@ label{color:#c2d0ed;font-size:.8125rem}.form-privacy{color:#9caed0}
 }
 @keyframes promo-banner-flutter{0%,100%{transform:rotate(-1deg)}50%{transform:rotate(1deg)}}
 @media(max-width:600px){
- .promo-flight{--flight-duration:11s;top:122px;transform-origin:54px 35px}
+ .promo-flight{--flight-shadow-ink:rgba(0,0,0,.42);--flight-shadow-blur:5px;--flight-duration:11s;top:122px;transform-origin:54px 35px}
  .promo-plane-shell{width:108px;height:70px}.promo-plane{width:82px}.promo-towline{width:22px}
  .promo-flight-banner{padding:10px 34px 10px 14px}
  .promo-flight-banner>a{max-width:255px;white-space:normal;font-size:.75rem}
@@ -202,9 +202,9 @@ label{color:#c2d0ed;font-size:.8125rem}.form-privacy{color:#9caed0}
 @media(prefers-reduced-motion:reduce){.promo-cloth-mesh{display:none}}
 
 /* Cast the plane's current silhouette onto the page below its flight path. */
-.promo-plane-shell>canvas,.promo-plane-shell>.promo-plane{filter:drop-shadow(26px 62px 6px rgba(0,0,0,.46))}
+.promo-plane-shell>canvas,.promo-plane-shell>.promo-plane{filter:drop-shadow(26px 62px var(--flight-shadow-blur) var(--flight-shadow-ink))}
 @media(max-width:600px){
- .promo-plane-shell>canvas,.promo-plane-shell>.promo-plane{filter:drop-shadow(18px 46px 5px rgba(0,0,0,.42))}
+ .promo-plane-shell>canvas,.promo-plane-shell>.promo-plane{filter:drop-shadow(18px 46px var(--flight-shadow-blur) var(--flight-shadow-ink))}
 }
 
 
@@ -215,7 +215,7 @@ label{color:#c2d0ed;font-size:.8125rem}.form-privacy{color:#9caed0}
 .promo-flight,.promo-trailer{will-change:transform}
 
 /* Ground shadow follows horizontal travel, independently of the cloth's roll and bob. */
-.promo-banner-shadow{position:absolute;z-index:0;left:202px;top:106px;width:calc(100% - 176px);height:46px;transform:translateY(-50%);border-radius:5px;background:rgba(0,0,0,.78);backdrop-filter:brightness(.35);-webkit-backdrop-filter:brightness(.35);box-shadow:0 4px 14px #0009,0 0 0 1px #94b7ed24;filter:blur(2px);pointer-events:none}
-@media(max-width:600px){.promo-banner-shadow{left:148px;top:81px;width:calc(100% - 130px);height:57px;filter:blur(2px)}}
+.promo-banner-shadow{position:absolute;z-index:0;left:202px;top:106px;width:calc(100% - 176px);height:46px;transform:translateY(-50%);border-radius:5px;background:var(--flight-shadow-ink);filter:blur(var(--flight-shadow-blur));pointer-events:none}
+@media(max-width:600px){.promo-banner-shadow{left:148px;top:81px;width:calc(100% - 130px);height:57px;filter:blur(var(--flight-shadow-blur))}}
 
 .promo-aircraft{position:relative;z-index:1}
