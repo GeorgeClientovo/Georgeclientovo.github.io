@@ -318,13 +318,22 @@
  let failed = false;
  let playingRequest = 0;
  video.muted = true;
+ video.defaultMuted = true;
+ video.playsInline = true;
+ video.autoplay = !reduced.matches && !saveData;
+ toggle.hidden = reduced.matches;
  function syncLabel() {
   toggle.textContent = video.paused ? 'Play background video' : 'Pause background video';
  }
  async function start() {
   if (failed || reduced.matches || userPaused || !inView || document.hidden || !video.paused) return;
   const request = ++playingRequest;
-  if (!video.getAttribute('src')) video.src = video.dataset.videoSrc;
+  video.autoplay = !reduced.matches && !saveData;
+  video.preload = 'auto';
+  if (!video.getAttribute('src')) {
+   video.src = video.dataset.videoSrc;
+   video.load();
+  }
   try {
    await video.play();
    if (request !== playingRequest || reduced.matches || userPaused || !inView || document.hidden) {
@@ -339,6 +348,7 @@
   }
  }
  function pause() {
+  video.autoplay = false;
   playingRequest++;
   video.pause();
   syncLabel();
@@ -348,6 +358,8 @@
   if (userPaused) pause();
   else start();
  });
+ video.addEventListener('canplay', () => { if (!saveData) start(); });
+ window.addEventListener('pageshow', () => { if (!saveData) start(); });
  video.addEventListener('play',syncLabel);
  video.addEventListener('pause',syncLabel);
  video.addEventListener('error',() => {
