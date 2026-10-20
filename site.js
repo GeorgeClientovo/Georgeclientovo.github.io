@@ -136,3 +136,115 @@
     });
   }
 })();
+/* Progressive motion: content stays visible if animation is unavailable. */
+(() => {
+  const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const desktop = window.matchMedia('(min-width: 901px)');
+  const header = document.querySelector('.site-header');
+  const hero = document.querySelector('.agency-hero');
+  const board = document.querySelector('.service-board');
+  const root = document.documentElement;
+  const activeAnimations = new Set();
+  let observer = null;
+  let frame = 0;
+  let cleanups = [];
+
+  const revealGroups = [
+    ['.section-heading, .pricing-head, .about-layout, .setup-copy', 0],
+    ['.process-steps .numbered-row', 90],
+    ['.contrast-point', 65],
+    ['.price-card, .decision-card', 90],
+    ['.timeline-step, .portal-note, .guide', 60],
+    ['.cta-band .shell', 0]
+  ];
+
+  function reveal(element, delay) {
+    if (preference.matches || typeof element.animate !== 'function') return;
+    // Do not move a control or section the visitor is currently using.
+    if (element.contains(document.activeElement)) return;
+    const animation = element.animate(
+      [{ opacity: 0.2, transform: 'translateY(26px)' },
+       { opacity: 1, transform: 'translateY(0)' }],
+      { duration: 650, delay, easing: 'cubic-bezier(.22,1,.36,1)', fill: 'backwards' }
+    );
+    activeAnimations.add(animation);
+    const finished = () => activeAnimations.delete(animation);
+    animation.onfinish = finished;
+    animation.oncancel = finished;
+  }
+
+  function update() {
+    frame = 0;
+    const scrollY = window.scrollY || 0;
+    const distance = Math.max(0, root.scrollHeight - window.innerHeight);
+    const heroTop = hero ? hero.getBoundingClientRect().top : 0;
+    const progress = distance ? Math.min(1, Math.max(0, scrollY / distance)) : 0;
+    if (header) header.classList.toggle('is-scrolled', scrollY > 16);
+    root.style.setProperty('--scroll-progress', String(progress));
+    if (board) {
+      const shift = !preference.matches && desktop.matches
+        ? Math.min(56, Math.max(0, -heroTop) * 0.11) : 0;
+      board.style.setProperty('--board-shift', shift + 'px');
+      board.style.setProperty('--board-turn', desktop.matches && !preference.matches
+        ? (2 - shift / 20) + 'deg' : '0deg');
+    }
+  }
+
+  function queueUpdate() {
+    if (!frame) frame = window.requestAnimationFrame(update);
+  }
+
+  function stop() {
+    if (observer) observer.disconnect();
+    observer = null;
+    activeAnimations.forEach((animation) => animation.cancel());
+    activeAnimations.clear();
+    cleanups.forEach((cleanup) => cleanup());
+    cleanups = [];
+  }
+
+  function setup() {
+    stop();
+    update();
+    if (preference.matches || !('IntersectionObserver' in window)) return;
+    const delays = new WeakMap();
+    observer = new window.IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        reveal(entry.target, delays.get(entry.target) || 0);
+        observer.unobserve(entry.target);
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -24px 0px' });
+
+    revealGroups.forEach(([selector, stagger]) => {
+      document.querySelectorAll(selector).forEach((element, index) => {
+        // Above-the-fold content is immediately readable; later sections enter once.
+        if (element.getBoundingClientRect().top < window.innerHeight - 24) return;
+        delays.set(element, (index % 3) * stagger);
+        observer.observe(element);
+      });
+    });
+
+    // Keyboard navigation reveals immediately and never waits for an entrance.
+    function onFocus(event) {
+      activeAnimations.forEach((animation) => {
+        const target = animation.effect && animation.effect.target;
+        if (target && target.contains(event.target)) animation.cancel();
+      });
+    }
+    document.addEventListener('focusin', onFocus);
+    cleanups.push(() => document.removeEventListener('focusin', onFocus));
+  }
+
+  window.addEventListener('scroll', queueUpdate, { passive: true });
+  window.addEventListener('resize', queueUpdate, { passive: true });
+  if (preference.addEventListener) preference.addEventListener('change', setup);
+  if (desktop.addEventListener) desktop.addEventListener('change', queueUpdate);
+  window.addEventListener('pagehide', () => {
+    stop();
+    if (frame) window.cancelAnimationFrame(frame);
+    frame = 0;
+  });
+  window.addEventListener('pageshow', setup);
+  setup();
+})();
