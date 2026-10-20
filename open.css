@@ -188,3 +188,14 @@ label{color:#c2d0ed;font-size:.8125rem}.form-privacy{color:#9caed0}
 }
 @media(prefers-reduced-motion:reduce){.promo-flight{display:none;animation:none}.promo-flight-banner,.promo-flight-banner::before,.promo-aircraft,.promo-tow,.promo-plane-shell{animation:none}}
 @media print{.promo-flight{display:none}}
+
+/* Each cloth strip carries its portion of the lettering through the same depth wave. */
+.promo-flight-banner.has-wave{background:none;border-color:transparent;border-radius:0;box-shadow:none;isolation:auto;clip-path:none;transform-style:preserve-3d;animation-name:promo-banner-flutter}
+.promo-flight-banner.has-wave::before{display:none}
+.promo-flight-banner.has-wave>a,.promo-flight-banner.has-wave>a:hover{color:transparent;text-shadow:none}
+.promo-flight-banner.has-wave>a:focus-visible{outline-color:#211208}
+.promo-cloth-mesh{position:absolute;inset:0;display:block;transform-style:preserve-3d;pointer-events:none}
+.promo-cloth-slice{position:absolute;top:0;height:100%;display:block;overflow:hidden;transform-origin:center center;backface-visibility:visible;background:linear-gradient(180deg,#ffbd7c 0%,#ffab59 13%,#ff9b42 65%,#e78634 100%);box-shadow:inset 0 1px #ffe0b999,inset 0 -2px #71340840;will-change:transform}
+.promo-cloth-ink{position:absolute;top:0;display:block;box-sizing:border-box;color:#211208}
+.promo-flight-banner.has-wave>button{transform:translateY(-50%) translateZ(20px)}
+@media(prefers-reduced-motion:reduce){.promo-cloth-mesh{display:none}}
