@@ -291,3 +291,17 @@
  if (reduced.addEventListener) reduced.addEventListener('change', setupReveals);
  setupReveals();
 })();
+
+/* Pause the promotional marquee without affecting the signup link. */
+(() => {
+ const banner = document.querySelector('[data-promo-banner]');
+ const toggle = banner?.querySelector('[data-promo-pause]');
+ if (!toggle) return;
+ toggle.hidden = false;
+ toggle.addEventListener('click', () => {
+  const paused = banner.classList.toggle('is-paused');
+  toggle.setAttribute('aria-pressed', String(paused));
+  toggle.setAttribute('aria-label', paused ? 'Resume scrolling announcement' : 'Pause scrolling announcement');
+  toggle.firstElementChild.textContent = paused ? '▶' : 'Ⅱ';
+ });
+})();

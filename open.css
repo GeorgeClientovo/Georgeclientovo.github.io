@@ -148,3 +148,23 @@ label{color:#c2d0ed;font-size:.8125rem}.form-privacy{color:#9caed0}
 .founder-portraits{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:28px}
 .founder-portraits img{display:block;width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;object-position:center 30%;border:1px solid #354563;border-radius:14px;background:#131e32;box-shadow:0 12px 32px #0003}
 @media(max-width:650px){.founder-portraits{gap:12px;max-width:440px}.founder-portraits img{border-radius:10px}}
+
+/* Full-width free-onboarding announcement beneath the navigation. */
+.promo-banner{position:relative;z-index:3;width:100%;margin-top:16px;overflow:hidden;background:#ff9b42;color:#211208}
+.promo-link,.promo-link:hover{display:block;overflow:hidden;color:#211208;text-decoration:none}
+.promo-link:focus-visible{outline:3px solid #fff;outline-offset:-4px}
+.promo-track{display:flex;width:max-content;animation:promo-scroll 38s linear infinite;will-change:transform}
+.promo-group{display:flex;flex-shrink:0;align-items:center;justify-content:space-around;min-width:100vw;gap:72px;padding:10px 36px;font-size:.8125rem;font-weight:600;line-height:1.5;white-space:nowrap}
+.promo-group>span{flex-shrink:0}
+.promo-banner:hover .promo-track,.promo-banner:focus-within .promo-track,.promo-banner.is-paused .promo-track{animation-play-state:paused}
+.promo-pause{position:absolute;inset:0 0 0 auto;width:44px;min-height:40px;padding:0;border:0;border-left:1px solid #21120833;border-radius:0;background:#ff9b42;color:#211208;font-size:1rem;cursor:pointer}
+.promo-pause:hover{background:#ffb16b}
+.promo-pause:focus-visible{outline:2px solid #211208;outline-offset:-4px}
+.promo-pause[hidden]{display:none}
+@keyframes promo-scroll{to{transform:translateX(-50%)}}
+@media(max-width:600px),(prefers-reduced-motion:reduce){
+ .promo-track{width:100%;animation:none;transform:none;will-change:auto}
+ .promo-group{display:block;min-width:0;width:100%;padding:10px 20px;white-space:normal;text-align:center;font-size:.75rem}
+ .promo-group+.promo-group,.promo-group>span+span,.promo-pause{display:none}
+}
+@media print{.promo-banner{display:none}}
