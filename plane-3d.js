@@ -107,16 +107,15 @@
    const rollProgress=Math.max(0,Math.min(1,(p-.25)/.22));
    const easedRoll=rollProgress*rollProgress*(3-2*rollProgress);
    const roll=easedRoll*Math.PI*2;
-   const turnPhase=Math.max(0,Math.min(1,(p-.50)/.14));
+   const turnPhase=Math.max(0,Math.min(1,(p-.50)/.26));
    const turn=turnPhase*turnPhase*(3-2*turnPhase);
-   const bank=Math.sin(time*1.4)*.055+Math.sin(time*.65)*.035-Math.sin(turnPhase*Math.PI)*.28;
+   const bank=Math.sin(time*1.4)*.055+Math.sin(time*.65)*.035-Math.sin(turn*Math.PI)*.20;
    const pitch=Math.cos(time*1.4)*.025+Math.cos(time*.65)*.016;
-   const approach=Math.max(0,(p-.64)/.36);
-   const resolution=Math.ceil((1+2*approach*approach)*2)/2;
-   const dpr=Math.min(window.devicePixelRatio||1,2)*resolution,w=Math.round(shell.clientWidth*dpr),h=Math.round(shell.clientHeight*dpr);
+   // Keep the drawing buffer fixed while approaching: resizing it can stall frames.
+   const dpr=Math.min((window.devicePixelRatio||1)*2,4),w=Math.round(shell.clientWidth*dpr),h=Math.round(shell.clientHeight*dpr);
    if(canvas.width!==w||canvas.height!==h){canvas.width=w;canvas.height=h;gl.viewport(0,0,w,h);}
    // WebGL's upward Y axis reverses the visible roll relative to CSS rotateX.
-   gl.uniform1f(uniforms.uYaw,-.28+turn*(Math.PI/2+.28));
+   gl.uniform1f(uniforms.uYaw,-.28+turn*(1.82+.28));
    gl.uniform1f(uniforms.uRoll,-roll+bank);gl.uniform1f(uniforms.uPitch,pitch);
    gl.uniform1f(uniforms.uSpin,time*32);gl.uniform1f(uniforms.uAspect,w/h);
    gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);gl.drawArrays(gl.TRIANGLES,0,vertices.length/10);

@@ -43,7 +43,7 @@
     const slope=(-Math.cos(phase)*Math.PI*4*envelope+.65*Math.sin(phase)*u**(-.35))*amplitude/width;
     const angle=-Math.atan(slope)*180/Math.PI;
     slice.style.transform='translate3d(0,'+(Math.sin(phase+.4)*1.4*u).toFixed(3)+'px,'+depth.toFixed(3)+'px) rotateY('+angle.toFixed(3)+'deg)';
-    slice.style.filter='brightness('+(1+Math.sin(phase+.65)*.13*envelope).toFixed(3)+') drop-shadow(26px 62px 6px rgba(0,0,0,.38))';
+    slice.style.setProperty('--fold-shade',((1-Math.sin(phase+.65))*.10*envelope).toFixed(3));
    });
   }
   requestAnimationFrame(render);
