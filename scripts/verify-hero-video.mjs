@@ -1,9 +1,12 @@
-// Validate the external hero asset during preview builds; no credentials required.
+// Check that the clip is an MP4, with diagnostic exit codes for CI.
 const source = "https://assets.mixkit.co/videos/preview/mixkit-people-working-in-the-office-42617-large.mp4";
-const response = await fetch(source, { headers: { Range: "bytes=0-1023" }, signal: AbortSignal.timeout(30000) });
-if (!response.ok) throw new Error("Hero footage unavailable: HTTP " + response.status);
-const reader = response.body.getReader();
-const {value} = await reader.read();
-await reader.cancel();
-if (!value || !Buffer.from(value).includes(Buffer.from("ftyp"))) throw new Error("Hero footage did not return an MP4 file");
-console.log("Verified hero MP4 from Mixkit. Content-Type:",response.headers.get("content-type"));
+try {
+ const response = await fetch(source, {headers: {Range:"bytes=0-1023"},signal:AbortSignal.timeout(25000)});
+ if (!response.ok) { console.error("Media HTTP",response.status); process.exit(response.status===404?44:response.status===403?43:45); }
+ const reader = response.body.getReader();
+ let first=Buffer.alloc(0);
+ while(first.length<32){const part=await reader.read();if(part.done)break;first=Buffer.concat([first,Buffer.from(part.value)]);}
+ await reader.cancel();
+ if(!first.includes(Buffer.from("ftyp"))){console.error("Not an MP4");process.exit(46);}
+ console.log("Hero MP4 verified");
+} catch(error) {console.error(error.message);process.exit(47);}
