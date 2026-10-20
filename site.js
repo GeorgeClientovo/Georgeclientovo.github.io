@@ -305,3 +305,73 @@
  if (reduced.addEventListener) reduced.addEventListener('change',queue);
  paint();
 })();
+
+/* Silent background footage: pause when off-screen, and honour motion/data preferences. */
+(() => {
+ const video = document.querySelector('[data-hero-video]');
+ const toggle = document.querySelector('[data-hero-video-toggle]');
+ if (!video || !toggle) return;
+ const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+ const saveData = !!(navigator.connection && navigator.connection.saveData);
+ let userPaused = false;
+ let inView = true;
+ let failed = false;
+ let playingRequest = 0;
+ video.muted = true;
+ function syncLabel() {
+  toggle.textContent = video.paused ? 'Play background video' : 'Pause background video';
+ }
+ async function start() {
+  if (failed || reduced.matches || userPaused || !inView || document.hidden || !video.paused) return;
+  const request = ++playingRequest;
+  if (!video.getAttribute('src')) video.src = video.dataset.videoSrc;
+  try {
+   await video.play();
+   if (request !== playingRequest || reduced.matches || userPaused || !inView || document.hidden) {
+    video.pause();
+   }
+   toggle.hidden = reduced.matches;
+   syncLabel();
+  } catch {
+   // Autoplay restrictions keep the dark fallback and allow a manual play.
+   toggle.hidden = reduced.matches || failed;
+   syncLabel();
+  }
+ }
+ function pause() {
+  playingRequest++;
+  video.pause();
+  syncLabel();
+ }
+ toggle.addEventListener('click', () => {
+  userPaused = !video.paused;
+  if (userPaused) pause();
+  else start();
+ });
+ video.addEventListener('play',syncLabel);
+ video.addEventListener('pause',syncLabel);
+ video.addEventListener('error',() => {
+  failed = true;
+  pause();
+  video.hidden = true;
+  toggle.hidden = true;
+ });
+ if ('IntersectionObserver' in window) {
+  const observer = new window.IntersectionObserver(([entry]) => {
+   inView = entry.isIntersecting;
+   if (inView && !saveData) start();
+   else pause();
+  },{threshold:0});
+  observer.observe(video.closest('.agency-hero'));
+ }
+ document.addEventListener('visibilitychange',() => {
+  if (document.hidden) pause();
+  else if (!saveData) start();
+ });
+ if (reduced.addEventListener) reduced.addEventListener('change',() => {
+  if (reduced.matches) {pause();toggle.hidden=true;}
+  else if (!saveData) start();
+ });
+ if (!reduced.matches && saveData) {toggle.hidden=false;syncLabel();}
+ if (!saveData) start();
+})();
