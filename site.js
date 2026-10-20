@@ -232,12 +232,14 @@
  if (modal && launch && close && player) {
   launch.addEventListener('click', () => {
    if (typeof modal.showModal !== 'function') {
-    window.location.assign('/media/hero-video.mp4');
+    window.location.assign('/media/portal-walkthrough-audio.mp4');
     return;
    }
    modal.showModal();
    document.body.classList.add('demo-open');
    document.dispatchEvent(new CustomEvent('clientovo:demo', { detail: { open: true } }));
+   player.muted = false;
+   player.volume = 1;
    player.play().catch(() => {});
   });
   close.addEventListener('click', () => modal.close());
