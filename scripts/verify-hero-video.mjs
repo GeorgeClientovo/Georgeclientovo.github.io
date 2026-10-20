@@ -1,12 +1,6 @@
-// Check that the clip is an MP4, with diagnostic exit codes for CI.
-const source = "https://videos.pexels.com/video-files/4629685/4629685-hd_1280_720_25fps.mp4";
-try {
- const response = await fetch(source, {headers: {Range:"bytes=0-1023"},signal:AbortSignal.timeout(25000)});
- if (!response.ok) { console.error("Media HTTP",response.status); process.exit(response.status===404?44:response.status===403?43:45); }
- const reader = response.body.getReader();
- let first=Buffer.alloc(0);
- while(first.length<32){const part=await reader.read();if(part.done)break;first=Buffer.concat([first,Buffer.from(part.value)]);}
- await reader.cancel();
- if(!first.includes(Buffer.from("ftyp"))){console.error("Not an MP4");process.exit(46);}
- console.log("Hero MP4 verified");
-} catch(error) {console.error(error.message);process.exit(47);}
+import { readFile, stat } from 'node:fs/promises';
+const path = new URL('../media/hero-video.mp4', import.meta.url);
+const bytes = await readFile(path);
+if (!bytes.subarray(0, 32).includes(Buffer.from('ftyp'))) throw new Error('Hero video is not an MP4');
+if ((await stat(path)).size > 2000000) throw new Error('Hero exceeds the 2 MB background-video budget');
+console.log('Local hero MP4 verified:', bytes.length, 'bytes');

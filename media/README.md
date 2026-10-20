@@ -1,14 +1,8 @@
 # Hero video
 
-Title: A Group Of Office Worker Discussing A Job On Hand
-Creator: Ketut Subiyanto
-Provider: Pexels
-Item: https://www.pexels.com/video/a-group-of-office-worker-discussing-a-job-on-hand-4629685/
-License: https://www.pexels.com/license/
-Checked: 20 October 2026. The license permits free website and product-promotion use. Attribution is not required; stock subjects must not be presented as endorsing Clientovo.
+Source: user-supplied Clientovo portal walkthrough, uploaded 20 October 2026.
+Original: copy_6CFA1CE7-C0DE-445F-8ED8-5FA0BF70B198 2.mov
 
-Asset: https://videos.pexels.com/video-files/4629685/4629685-hd_1280_720_25fps.mp4
+Website copy: hero-video.mp4 — H.264, 1280 × 720, 30 fps, approximately 17 seconds. Audio has been removed. The MP4 uses fast-start metadata for browser playback. A still from the supplied clip is included as hero-poster.jpg.
 
-This is decorative stock footage, not the Clientovo team. The hero displays it at 40% opacity with a contrast overlay. Playback is silent, can be paused, and respects reduced-motion preferences. It loads from Pexels’ CDN; a dark background remains if loading fails.
-
-The original Mixkit selection was replaced because its CDN returned HTTP 403 during verification.
+The video and poster are served directly from this repository. They replace the Pexels footage; there is no stock-video CDN dependency. The hero retains 40% video opacity, its contrast overlay, pause control and reduced-motion handling. The original upload is unchanged.
