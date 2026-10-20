@@ -151,7 +151,7 @@ label{color:#c2d0ed;font-size:.8125rem}.form-privacy{color:#9caed0}
 
 
 /* A one-time plane towing the free-onboarding offer across the viewport. */
-.promo-flight{--flight-duration:13s;perspective:900px;transform-origin:71px 44px;position:fixed;top:clamp(108px,20vh,180px);left:0;z-index:110;display:flex;align-items:center;width:max-content;max-width:none;filter:drop-shadow(0 6px 12px #0005);pointer-events:none;animation:promo-flyby var(--flight-duration) linear both}
+.promo-flight{--flight-duration:13s;perspective:900px;transform-origin:71px 44px;position:fixed;top:clamp(108px,20vh,180px);left:0;z-index:110;display:flex;align-items:center;width:max-content;max-width:none;pointer-events:none;animation:promo-flyby var(--flight-duration) linear both}
 .promo-flight[hidden]{display:none}
 .promo-aircraft{display:flex;align-items:center;width:max-content;transform-style:preserve-3d;transform-origin:center;animation:promo-flight-drift var(--flight-duration) ease-in-out both}
 .promo-plane-shell{position:relative;display:block;flex:none;width:142px;height:88px;animation:promo-barrel-roll var(--flight-duration) linear both}
@@ -207,11 +207,13 @@ label{color:#c2d0ed;font-size:.8125rem}.form-privacy{color:#9caed0}
  .promo-plane-shell>canvas,.promo-plane-shell>.promo-plane{filter:drop-shadow(18px 46px 5px rgba(0,0,0,.42))}
 }
 
-/* The fallback cloth also casts a shadow; 3D strips cast their own moving shadows. */
-.promo-flight-banner:not(.has-wave){filter:drop-shadow(26px 62px 6px rgba(0,0,0,.38))}
 
-/* One soft cloth shadow avoids a separate animated blur pass for every strip. */
-.promo-flight-banner.has-wave::after{content:"";position:absolute;left:26px;top:62px;width:100%;height:100%;background:rgba(0,0,0,.28);filter:blur(6px);transform:translateZ(-22px);pointer-events:none}
+
+
 .promo-cloth-slice::after{content:"";position:absolute;inset:0;background:rgba(64,24,0,var(--fold-shade,0));pointer-events:none}
 
 .promo-flight,.promo-trailer{will-change:transform}
+
+/* Ground shadow follows horizontal travel, independently of the cloth's roll and bob. */
+.promo-banner-shadow{position:absolute;left:202px;top:106px;width:calc(100% - 176px);height:46px;transform:translateY(-50%);border-radius:4px;background:rgba(0,0,0,.28);filter:blur(6px);pointer-events:none}
+@media(max-width:600px){.promo-banner-shadow{left:148px;top:81px;width:calc(100% - 130px);height:57px;filter:blur(5px)}}
