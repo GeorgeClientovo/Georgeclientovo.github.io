@@ -153,7 +153,14 @@ label{color:#c2d0ed;font-size:.8125rem}.form-privacy{color:#9caed0}
 /* A one-time plane towing the free-onboarding offer across the viewport. */
 .promo-flight{--flight-duration:13s;perspective:900px;position:fixed;top:clamp(108px,20vh,180px);left:0;z-index:110;display:flex;align-items:center;width:max-content;max-width:none;filter:drop-shadow(0 6px 12px #0005);pointer-events:none;animation:promo-flyby var(--flight-duration) linear both}
 .promo-flight[hidden]{display:none}
-.promo-aircraft{display:flex;align-items:center;width:max-content;transform-style:preserve-3d;transform-origin:center;animation:promo-barrel-roll var(--flight-duration) linear both}
+.promo-aircraft{display:flex;align-items:center;width:max-content;transform-style:preserve-3d;transform-origin:center;animation:promo-flight-drift var(--flight-duration) ease-in-out both}
+.promo-plane-shell{position:relative;display:block;flex:none;width:142px;height:88px;animation:promo-barrel-roll var(--flight-duration) linear both}
+.promo-plane-shell.has-3d-plane{animation:none}
+.promo-plane-shell>canvas{display:block;width:100%;height:100%;opacity:0}
+.promo-plane-shell.has-3d-plane>canvas{opacity:1}
+.promo-plane-shell>.promo-plane{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%)}
+.promo-plane-shell.has-3d-plane>.promo-plane{display:none}
+.promo-tow{display:flex;align-items:center;transform-origin:left center;transform-style:preserve-3d;animation:promo-barrel-roll var(--flight-duration) linear both}
 .promo-plane{display:block;flex:none;width:112px;height:auto}
 .promo-towline{width:34px;flex:none;border-top:1px solid #e0e7ffb3;transform:rotate(-3deg);transform-origin:left}
 .promo-flight-banner{position:relative;flex:none;padding:12px 38px 12px 20px;border:1px solid #ffc28a;border-radius:2px 7px 7px 2px;background:linear-gradient(100deg,#ffb366,#ff9b42);color:#211208;pointer-events:auto;transform-origin:left center;animation:promo-banner-flutter 1.6s ease-in-out infinite}
@@ -162,15 +169,16 @@ label{color:#c2d0ed;font-size:.8125rem}.form-privacy{color:#9caed0}
 .promo-flight-banner>button{position:absolute;right:5px;top:50%;transform:translateY(-50%);display:grid;place-items:center;min-width:28px;min-height:32px;padding:0;border:0;border-radius:4px;background:transparent;color:#211208;font-size:1.25rem;cursor:pointer}
 .promo-flight-banner>button:hover{background:#21120815}
 .promo-flight-banner>button:focus-visible{outline:2px solid #211208;outline-offset:-2px}
-.promo-flight:hover,.promo-flight:focus-within,.promo-flight:hover .promo-aircraft,.promo-flight:focus-within .promo-aircraft,.promo-flight:hover .promo-flight-banner,.promo-flight:focus-within .promo-flight-banner{animation-play-state:paused}
+.promo-flight:hover,.promo-flight:focus-within,.promo-flight:hover .promo-tow,.promo-flight:focus-within .promo-tow,.promo-flight:hover .promo-plane-shell,.promo-flight:focus-within .promo-plane-shell,.promo-flight:hover .promo-aircraft,.promo-flight:focus-within .promo-aircraft,.promo-flight:hover .promo-flight-banner,.promo-flight:focus-within .promo-flight-banner{animation-play-state:paused}
 @keyframes promo-flyby{from{transform:translateX(100vw)}to{transform:translateX(-100%)}}
+@keyframes promo-flight-drift{0%,100%{transform:translateY(0) rotate(0deg)}15%{transform:translateY(-10px) rotate(.6deg)}32%{transform:translateY(6px) rotate(-.5deg)}49%{transform:translateY(-7px) rotate(.35deg)}65%{transform:translateY(9px) rotate(-.6deg)}83%{transform:translateY(-5px) rotate(.4deg)}}
 @keyframes promo-barrel-roll{0%,44%{transform:rotateX(0deg)}56%,100%{transform:rotateX(360deg)}}
 @keyframes promo-banner-flutter{0%,100%{transform:rotate(-1deg)}50%{transform:rotate(1deg)}}
 @media(max-width:600px){
  .promo-flight{--flight-duration:11s;top:122px}
- .promo-plane{width:82px}.promo-towline{width:22px}
+ .promo-plane-shell{width:108px;height:70px}.promo-plane{width:82px}.promo-towline{width:22px}
  .promo-flight-banner{padding:10px 34px 10px 14px}
  .promo-flight-banner>a{max-width:255px;white-space:normal;font-size:.75rem}
 }
-@media(prefers-reduced-motion:reduce){.promo-flight{display:none;animation:none}.promo-flight-banner,.promo-aircraft{animation:none}}
+@media(prefers-reduced-motion:reduce){.promo-flight{display:none;animation:none}.promo-flight-banner,.promo-aircraft,.promo-tow,.promo-plane-shell{animation:none}}
 @media print{.promo-flight{display:none}}
