@@ -292,16 +292,22 @@
  setupReveals();
 })();
 
-/* Pause the promotional marquee without affecting the signup link. */
+
+/* Launch once, 1.5 seconds after landing, then remove the announcement. */
 (() => {
- const banner = document.querySelector('[data-promo-banner]');
- const toggle = banner?.querySelector('[data-promo-pause]');
- if (!toggle) return;
- toggle.hidden = false;
- toggle.addEventListener('click', () => {
-  const paused = banner.classList.toggle('is-paused');
-  toggle.setAttribute('aria-pressed', String(paused));
-  toggle.setAttribute('aria-label', paused ? 'Resume scrolling announcement' : 'Pause scrolling announcement');
-  toggle.firstElementChild.textContent = paused ? '▶' : 'Ⅱ';
+ const flight = document.querySelector('[data-promo-flight]');
+ if (!flight) return;
+ const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+ let launchTimer;
+ const dismiss = () => {
+  window.clearTimeout(launchTimer);
+  flight.remove();
+ };
+ if (reduced.matches) { dismiss(); return; }
+ flight.querySelector('[data-promo-dismiss]').addEventListener('click', dismiss);
+ flight.addEventListener('animationend', (event) => {
+  if (event.target === flight && event.animationName === 'promo-flyby') dismiss();
  });
+ reduced.addEventListener('change', (event) => { if (event.matches) dismiss(); });
+ launchTimer = window.setTimeout(() => { if (!reduced.matches) flight.hidden = false; }, 1500);
 })();
