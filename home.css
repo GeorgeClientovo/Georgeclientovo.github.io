@@ -667,3 +667,16 @@ input,select,textarea{border-radius:0;background:var(--surface)}
  .process-step{min-height:0;padding:24px 0}
  .scroll-type{display:none}
 }
+
+
+/* Commercially licensed office footage behind the whole hero, at 40% opacity. */
+.agency-hero{position:relative;isolation:isolate}
+.hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;opacity:.4;z-index:0;pointer-events:none}
+.hero-video-shade{position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(90deg,rgba(25,26,27,.65),rgba(25,26,27,.35))}
+.agency-hero>.shell{position:relative;z-index:2}
+.hero-video-tools{display:flex;justify-content:flex-end;margin-top:24px}
+.hero-video-toggle{border:1px solid #ffffff60;background:#191a1bbf;color:#fffdf8;font-size:.6875rem;min-height:44px;padding:10px 14px}
+.hero-video-toggle:hover{background:#191a1b}
+.agency-hero .hero-caption{margin-top:24px}
+@media(prefers-reduced-motion:reduce){.hero-video,.hero-video-shade,.hero-video-tools{display:none}}
+@media print{.hero-video,.hero-video-shade,.hero-video-tools{display:none}}
