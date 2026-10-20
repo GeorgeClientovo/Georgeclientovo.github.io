@@ -505,6 +505,17 @@ main > .hero h1 {
 .panel { padding: 28px 0 !important; }
 .bluepanel { background: transparent !important; }
 .tick { color: var(--blue) !important; }
+.panel ul { counter-reset: responsibility; }
+.panel li { counter-increment: responsibility; }
+.panel li::before {
+  content: counter(responsibility, decimal-leading-zero);
+  flex: 0 0 25px;
+  color: var(--blue);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .08em;
+}
+.panel .tick { display: none !important; }
 .handover, .admin-impact { background: var(--ink) !important; }
 .handover h2, .admin-impact h2, .handover h3 { color: #fff !important; }
 .handover p, .admin-impact p { color: #b9c2d0 !important; }
