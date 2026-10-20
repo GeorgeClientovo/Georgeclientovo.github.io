@@ -569,3 +569,27 @@ input,select,textarea{border-radius:0;background:var(--surface)}
  .table-scroll{overflow:visible}.prose .table-scroll table{min-width:0}
  .service-board{transform:none}
 }
+
+
+/* Scroll movement is enhancement only: no default-hidden content or scroll interception. */
+.site-header{position:sticky;top:0;transition:box-shadow .25s ease}
+.site-header.is-scrolled{box-shadow:0 6px 24px #191a1b12}
+.site-header::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;background:var(--blue);transform:scaleX(var(--scroll-progress,0));transform-origin:left;pointer-events:none}
+.service-board{transform:translateY(calc(-1 * var(--board-shift,0px))) rotate(var(--board-turn,2deg))}
+#main section[id],#main article[id],#main .prose section[id]{scroll-margin-top:112px}
+@media(hover:hover) and (prefers-reduced-motion:no-preference){
+ .price-card,.decision-card{transition:transform .25s ease,box-shadow .25s ease}
+ .price-card:hover,.decision-card:hover{transform:translateY(-5px);box-shadow:0 14px 32px #191a1b0a}
+ .board-link span,.text-link span{transition:transform .25s ease}
+ .board-link:hover span,.text-link:hover span{transform:translate(3px,-3px)}
+}
+@media(max-width:900px){.service-board{transform:none}}
+@media(prefers-reduced-motion:reduce){
+ .site-header{transition:none}
+ .service-board{transform:none}
+ .site-header::after{display:none}
+ .price-card:hover,.decision-card:hover{transform:none;box-shadow:none}
+}
+@media print{.site-header{position:static}.service-board{transform:none}}
+
+@media(min-width:901px){.toc,.setup-copy{top:112px}}
