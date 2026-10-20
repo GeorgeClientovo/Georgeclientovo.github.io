@@ -136,176 +136,6 @@
     });
   }
 })();
-/* Progressive motion: content stays visible if animation is unavailable. */
-(() => {
-  const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const desktop = window.matchMedia('(min-width: 901px)');
-  const header = document.querySelector('.site-header');
-  const hero = document.querySelector('.agency-hero');
-  const board = document.querySelector('.service-board');
-  const root = document.documentElement;
-  const activeAnimations = new Set();
-  let observer = null;
-  let frame = 0;
-  let cleanups = [];
-
-  const revealGroups = [
-    ['.section-heading, .pricing-head, .about-layout, .setup-copy', 0],
-    ['.process-steps .numbered-row', 90],
-    ['.contrast-point', 65],
-    ['.price-card, .decision-card', 90],
-    ['.timeline-step, .portal-note, .guide', 60],
-    ['.cta-band .shell', 0]
-  ];
-
-  function reveal(element, delay) {
-    if (preference.matches || typeof element.animate !== 'function') return;
-    // Do not move a control or section the visitor is currently using.
-    if (element.contains(document.activeElement)) return;
-    const animation = element.animate(
-      [{ opacity: 0.2, transform: 'translateY(26px)' },
-       { opacity: 1, transform: 'translateY(0)' }],
-      { duration: 650, delay, easing: 'cubic-bezier(.22,1,.36,1)', fill: 'backwards' }
-    );
-    activeAnimations.add(animation);
-    const finished = () => activeAnimations.delete(animation);
-    animation.onfinish = finished;
-    animation.oncancel = finished;
-  }
-
-  function update() {
-    frame = 0;
-    const scrollY = window.scrollY || 0;
-    const distance = Math.max(0, root.scrollHeight - window.innerHeight);
-    const heroTop = hero ? hero.getBoundingClientRect().top : 0;
-    const progress = distance ? Math.min(1, Math.max(0, scrollY / distance)) : 0;
-    if (header) header.classList.toggle('is-scrolled', scrollY > 16);
-    root.style.setProperty('--scroll-progress', String(progress));
-    if (board) {
-      const shift = !preference.matches && desktop.matches
-        ? Math.min(56, Math.max(0, -heroTop) * 0.11) : 0;
-      board.style.setProperty('--board-shift', shift + 'px');
-      board.style.setProperty('--board-turn', desktop.matches && !preference.matches
-        ? (2 - shift / 20) + 'deg' : '0deg');
-    }
-  }
-
-  function queueUpdate() {
-    if (!frame) frame = window.requestAnimationFrame(update);
-  }
-
-  function stop() {
-    if (observer) observer.disconnect();
-    observer = null;
-    activeAnimations.forEach((animation) => animation.cancel());
-    activeAnimations.clear();
-    cleanups.forEach((cleanup) => cleanup());
-    cleanups = [];
-  }
-
-  function setup() {
-    stop();
-    update();
-    if (preference.matches || !('IntersectionObserver' in window)) return;
-    const delays = new WeakMap();
-    observer = new window.IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        reveal(entry.target, delays.get(entry.target) || 0);
-        observer.unobserve(entry.target);
-      });
-    }, { threshold: 0.08, rootMargin: '0px 0px -24px 0px' });
-
-    revealGroups.forEach(([selector, stagger]) => {
-      document.querySelectorAll(selector).forEach((element, index) => {
-        // Above-the-fold content is immediately readable; later sections enter once.
-        if (element.getBoundingClientRect().top < window.innerHeight - 24) return;
-        delays.set(element, (index % 3) * stagger);
-        observer.observe(element);
-      });
-    });
-
-    // Keyboard navigation reveals immediately and never waits for an entrance.
-    function onFocus(event) {
-      activeAnimations.forEach((animation) => {
-        const target = animation.effect && animation.effect.target;
-        if (target && target.contains(event.target)) animation.cancel();
-      });
-    }
-    document.addEventListener('focusin', onFocus);
-    cleanups.push(() => document.removeEventListener('focusin', onFocus));
-  }
-
-  window.addEventListener('scroll', queueUpdate, { passive: true });
-  window.addEventListener('resize', queueUpdate, { passive: true });
-  if (preference.addEventListener) preference.addEventListener('change', setup);
-  if (desktop.addEventListener) desktop.addEventListener('change', queueUpdate);
-  window.addEventListener('pagehide', () => {
-    stop();
-    if (frame) window.cancelAnimationFrame(frame);
-    frame = 0;
-  });
-  window.addEventListener('pageshow', setup);
-  setup();
-})();
-
-
-/* Scroll story: a fixed visual advances with the three real service stages. */
-(() => {
- const story = document.querySelector('[data-scroll-story]');
- if (!story) return;
- const steps = [...story.querySelectorAll('[data-story-step]')];
- const frames = [...story.querySelectorAll('[data-story-frame]')];
- const progress = story.querySelector('[data-story-progress]');
- const count = story.querySelector('[data-story-count]');
- const band = document.querySelector('.scroll-type');
- const track = document.querySelector('.scroll-type-track');
- const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
- const mobile = window.matchMedia('(max-width: 700px)');
- let queued = false;
- let current = -1;
- function paint() {
-  queued = false;
-  // Mobile copy passes below a compact sticky visual; desktop copy passes mid-screen.
-  const marker = mobile.matches ? Math.min(window.innerHeight * .72, 540) : window.innerHeight * .52;
-  let selected = 0;
-  let nearest = Infinity;
-  steps.forEach((step, index) => {
-   const rect = step.getBoundingClientRect();
-   const distance = Math.abs(rect.top + rect.height / 2 - marker);
-   if (distance < nearest) { nearest = distance; selected = index; }
-  });
-  let shift = 0;
-  if (band && track && !reduced.matches) {
-   const rect = band.getBoundingClientRect();
-   const fraction = Math.max(0, Math.min(1, (window.innerHeight - rect.top) / (window.innerHeight + rect.height)));
-   const travel = Math.max(0, track.scrollWidth - document.documentElement.clientWidth);
-   shift = -fraction * Math.min(travel, 600);
-  }
-  if (selected !== current) {
-   current = selected;
-   steps.forEach((step,index) => step.classList.toggle('is-current', index === selected));
-   frames.forEach((frame,index) => {
-    frame.classList.toggle('is-current', index === selected);
-    frame.classList.toggle('is-past', index < selected);
-   });
-   if (progress) progress.style.setProperty('--story-progress', String((selected + 1) / steps.length));
-   if (count) count.textContent = String(selected + 1).padStart(2, '0') + ' / 03';
-  }
-  if (track) track.style.setProperty('--type-shift', shift + 'px');
- }
- function queue() {
-  if (queued) return;
-  queued = true;
-  window.requestAnimationFrame(paint);
- }
- window.addEventListener('scroll',queue,{passive:true});
- window.addEventListener('resize',queue,{passive:true});
- window.addEventListener('pageshow',queue);
- if (reduced.addEventListener) reduced.addEventListener('change',queue);
- paint();
-})();
-
 /* Silent background footage: pause when off-screen, and honour motion/data preferences. */
 (() => {
  const video = document.querySelector('[data-hero-video]');
@@ -326,7 +156,7 @@
   toggle.textContent = video.paused ? 'Play background video' : 'Pause background video';
  }
  async function start() {
-  if (failed || reduced.matches || userPaused || !inView || document.hidden || !video.paused) return;
+  if (failed || reduced.matches || userPaused || !inView || document.hidden || !video.paused || document.querySelector('[data-demo-dialog][open]')) return;
   const request = ++playingRequest;
   video.autoplay = !reduced.matches && !saveData;
   video.preload = 'auto';
@@ -385,5 +215,77 @@
   else if (!saveData) start();
  });
  if (!reduced.matches && saveData) {toggle.hidden=false;syncLabel();}
+ document.addEventListener('clientovo:demo', (event) => {
+  if (event.detail.open) pause();
+  else if (!saveData) start();
+ });
  if (!saveData) start();
+})();
+
+/* Cruip Open interactions, without a framework dependency. */
+(() => {
+ const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+ const modal = document.querySelector('[data-demo-dialog]');
+ const launch = document.querySelector('[data-demo-open]');
+ const close = document.querySelector('[data-demo-close]');
+ const player = document.querySelector('[data-demo-video]');
+ if (modal && launch && close && player) {
+  launch.addEventListener('click', () => {
+   if (typeof modal.showModal !== 'function') {
+    window.location.assign('/media/hero-video.mp4');
+    return;
+   }
+   modal.showModal();
+   document.body.classList.add('demo-open');
+   document.dispatchEvent(new CustomEvent('clientovo:demo', { detail: { open: true } }));
+   player.play().catch(() => {});
+  });
+  close.addEventListener('click', () => modal.close());
+  modal.addEventListener('click', (event) => {
+   if (event.target !== modal) return;
+   const bounds = modal.getBoundingClientRect();
+   if (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom) modal.close();
+  });
+  modal.addEventListener('close', () => {
+   player.pause();
+   document.body.classList.remove('demo-open');
+   document.dispatchEvent(new CustomEvent('clientovo:demo', { detail: { open: false } }));
+   launch.focus();
+  });
+ }
+ const cards = [...document.querySelectorAll('.open-card')];
+ if (window.matchMedia('(hover: hover)').matches) {
+  cards.forEach((card) => card.addEventListener('pointermove', (event) => {
+   if (reduced.matches) return;
+   const rect = card.getBoundingClientRect();
+   card.style.setProperty('--pointer-x', (event.clientX - rect.left) + 'px');
+   card.style.setProperty('--pointer-y', (event.clientY - rect.top) + 'px');
+  }, { passive: true }));
+ }
+ let observer;
+ const animations = new Set();
+ function setupReveals() {
+  if (observer) observer.disconnect();
+  animations.forEach((animation) => animation.cancel());
+  animations.clear();
+  if (reduced.matches || !('IntersectionObserver' in window)) return;
+  observer = new window.IntersectionObserver((entries) => entries.forEach((entry) => {
+   if (!entry.isIntersecting) return;
+   observer.unobserve(entry.target);
+   if (entry.target.contains(document.activeElement) || typeof entry.target.animate !== 'function') return;
+   const siblings = entry.target.parentElement.children;
+   const stagger = entry.target.matches('.open-card, .open-feature') ? [...siblings].indexOf(entry.target) % 3 * 90 : 0;
+   const animation = entry.target.animate([{ opacity: .2, transform: 'translateY(24px)' }, { opacity: 1, transform: 'translateY(0)' }], { duration: 700, delay: stagger, easing: 'cubic-bezier(.22,1,.36,1)', fill: 'backwards' });
+   animations.add(animation);
+   animation.onfinish = animation.oncancel = () => animations.delete(animation);
+  }), { threshold: .08, rootMargin: '0px 0px -20px 0px' });
+  document.querySelectorAll('.open-section-heading, .open-card, .open-feature, .pricing-head, .price-card, .open-cta, .about-layout').forEach((element) => {
+   if (element.getBoundingClientRect().top >= window.innerHeight - 20) observer.observe(element);
+  });
+ }
+ document.addEventListener('focusin', (event) => {
+  animations.forEach((animation) => { if (animation.effect.target.contains(event.target)) animation.cancel(); });
+ });
+ if (reduced.addEventListener) reduced.addEventListener('change', setupReveals);
+ setupReveals();
 })();
