@@ -33,9 +33,9 @@
   if(!flight.isConnected||reduced.matches){observer?.disconnect();return;}
   if(!flight.hidden&&!document.hidden&&(width||measure())){
    const anim=flight.getAnimations().find(a=>a.animationName==='promo-flyby');
-   const duration=Number(anim?.effect.getComputedTiming().duration)||18000;
+   const duration=Number(anim?.effect.getComputedTiming().duration)||13000;
    const time=Number(anim?.currentTime||0)/1000;
-   const roll=Math.max(0,Math.min(1,(time/(duration/1000)-.25)/.22));
+   const roll=Math.max(0,Math.min(1,(time/(duration/1000)-.35)/.30));
    const amplitude=6+10*Math.sin(roll*Math.PI)**2;
    slices.forEach(({slice},i)=>{
     const u=(i+.5)/count,phase=time*4.2-u*Math.PI*4,envelope=u**.65;

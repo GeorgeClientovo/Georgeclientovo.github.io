@@ -102,20 +102,18 @@
   if(!flight.isConnected||reduced.matches){cleanup();return;}
   if(!flight.hidden&&!document.hidden){
    const anim=flight.getAnimations().find(a=>a.animationName==='promo-flyby');
-   const duration=anim?.effect.getComputedTiming().duration||18000;
+   const duration=anim?.effect.getComputedTiming().duration||13000;
    const time=Number(anim?.currentTime||0)/1000,p=Math.min(time/(duration/1000),1);
-   const rollProgress=Math.max(0,Math.min(1,(p-.25)/.22));
+   const rollProgress=Math.max(0,Math.min(1,(p-.35)/.30));
    const easedRoll=rollProgress*rollProgress*(3-2*rollProgress);
    const roll=easedRoll*Math.PI*2;
-   const turnPhase=Math.max(0,Math.min(1,(p-.50)/.26));
-   const turn=turnPhase*turnPhase*(3-2*turnPhase);
-   const bank=Math.sin(time*1.4)*.055+Math.sin(time*.65)*.035-Math.sin(turn*Math.PI)*.20;
+   const bank=Math.sin(time*1.4)*.055+Math.sin(time*.65)*.035;
    const pitch=Math.cos(time*1.4)*.025+Math.cos(time*.65)*.016;
-   // Keep the drawing buffer fixed while approaching: resizing it can stall frames.
+   // A fixed drawing buffer avoids mid-flight resizing stalls.
    const dpr=Math.min((window.devicePixelRatio||1)*2,4),w=Math.round(shell.clientWidth*dpr),h=Math.round(shell.clientHeight*dpr);
    if(canvas.width!==w||canvas.height!==h){canvas.width=w;canvas.height=h;gl.viewport(0,0,w,h);}
    // WebGL's upward Y axis reverses the visible roll relative to CSS rotateX.
-   gl.uniform1f(uniforms.uYaw,-.28+turn*(1.82+.28));
+   gl.uniform1f(uniforms.uYaw,-.28);
    gl.uniform1f(uniforms.uRoll,-roll+bank);gl.uniform1f(uniforms.uPitch,pitch);
    gl.uniform1f(uniforms.uSpin,time*32);gl.uniform1f(uniforms.uAspect,w/h);
    gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);gl.drawArrays(gl.TRIANGLES,0,vertices.length/10);
