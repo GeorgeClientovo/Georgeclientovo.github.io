@@ -1,0 +1,15 @@
+{
+  "name": "Clientovo",
+  "short_name": "Clientovo",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FFFFFF",
+  "theme_color": "#255FE8",
+  "icons": [
+    {
+      "src": "/favicon.png",
+      "sizes": "256x256",
+      "type": "image/png"
+    }
+  ]
+}
