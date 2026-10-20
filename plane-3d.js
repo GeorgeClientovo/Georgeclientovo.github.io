@@ -9,13 +9,13 @@
  const vertexSource = `
  attribute vec3 aPosition, aNormal, aColor;
  attribute float aSpin;
- uniform float uRoll, uPitch, uSpin, uAspect;
+ uniform float uRoll, uPitch, uSpin, uAspect, uYaw;
  varying vec3 vColor;
  mat3 rx(float a){float c=cos(a),s=sin(a);return mat3(1.,0.,0.,0.,c,s,0.,-s,c);}
  mat3 ry(float a){float c=cos(a),s=sin(a);return mat3(c,0.,-s,0.,1.,0.,s,0.,c);}
  mat3 rz(float a){float c=cos(a),s=sin(a);return mat3(c,s,0.,-s,c,0.,0.,0.,1.);}
  void main(){
-  mat3 model=rz(uPitch)*ry(-.28)*rx(.42+uRoll);
+  mat3 model=rz(uPitch)*ry(uYaw)*rx(.42+uRoll);
   mat3 prop=rx(aSpin*uSpin);
   vec3 p=model*(prop*aPosition), n=normalize(model*(prop*aNormal));
   float diffuse=max(dot(n,normalize(vec3(-.4,.8,1.))),0.);
@@ -88,7 +88,7 @@
  for(const [name,size,offset] of [['aPosition',3,0],['aNormal',3,12],['aColor',3,24],['aSpin',1,36]]){
   const loc=gl.getAttribLocation(program,name);gl.enableVertexAttribArray(loc);gl.vertexAttribPointer(loc,size,gl.FLOAT,false,stride,offset);
  }
- const uniforms=Object.fromEntries(['uRoll','uPitch','uSpin','uAspect'].map(name=>[name,gl.getUniformLocation(program,name)]));
+ const uniforms=Object.fromEntries(['uRoll','uPitch','uSpin','uAspect','uYaw'].map(name=>[name,gl.getUniformLocation(program,name)]));
  gl.enable(gl.DEPTH_TEST);gl.clearColor(0,0,0,0);
  shell.classList.add('has-3d-plane');
  const reduced=window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -102,16 +102,21 @@
   if(!flight.isConnected||reduced.matches){cleanup();return;}
   if(!flight.hidden&&!document.hidden){
    const anim=flight.getAnimations().find(a=>a.animationName==='promo-flyby');
-   const duration=anim?.effect.getComputedTiming().duration||13000;
+   const duration=anim?.effect.getComputedTiming().duration||18000;
    const time=Number(anim?.currentTime||0)/1000,p=Math.min(time/(duration/1000),1);
-   const rollProgress=Math.max(0,Math.min(1,(p-.35)/.30));
+   const rollProgress=Math.max(0,Math.min(1,(p-.25)/.22));
    const easedRoll=rollProgress*rollProgress*(3-2*rollProgress);
    const roll=easedRoll*Math.PI*2;
-   const bank=Math.sin(time*1.4)*.055+Math.sin(time*.65)*.035;
+   const turnPhase=Math.max(0,Math.min(1,(p-.50)/.14));
+   const turn=turnPhase*turnPhase*(3-2*turnPhase);
+   const bank=Math.sin(time*1.4)*.055+Math.sin(time*.65)*.035-Math.sin(turnPhase*Math.PI)*.28;
    const pitch=Math.cos(time*1.4)*.025+Math.cos(time*.65)*.016;
-   const dpr=Math.min(window.devicePixelRatio||1,2),w=Math.round(shell.clientWidth*dpr),h=Math.round(shell.clientHeight*dpr);
+   const approach=Math.max(0,(p-.64)/.36);
+   const resolution=Math.ceil((1+2*approach*approach)*2)/2;
+   const dpr=Math.min(window.devicePixelRatio||1,2)*resolution,w=Math.round(shell.clientWidth*dpr),h=Math.round(shell.clientHeight*dpr);
    if(canvas.width!==w||canvas.height!==h){canvas.width=w;canvas.height=h;gl.viewport(0,0,w,h);}
    // WebGL's upward Y axis reverses the visible roll relative to CSS rotateX.
+   gl.uniform1f(uniforms.uYaw,-.28+turn*(Math.PI/2+.28));
    gl.uniform1f(uniforms.uRoll,-roll+bank);gl.uniform1f(uniforms.uPitch,pitch);
    gl.uniform1f(uniforms.uSpin,time*32);gl.uniform1f(uniforms.uAspect,w/h);
    gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);gl.drawArrays(gl.TRIANGLES,0,vertices.length/10);
