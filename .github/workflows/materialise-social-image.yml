@@ -1,0 +1,29 @@
+name: Materialise social share image
+on:
+  push:
+    branches:
+      - redesign-human-editorial-20261020
+
+permissions:
+  contents: write
+
+jobs:
+  image:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Render the 1200 by 630 social card
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y librsvg2-bin
+          rsvg-convert -w 1200 -h 630 og-image.svg -o og-image.png
+          rm .github/workflows/materialise-social-image.yml
+      - name: Commit the share image
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add og-image.png .github/workflows/materialise-social-image.yml
+          git commit -m "Add social share image"
+          git push
