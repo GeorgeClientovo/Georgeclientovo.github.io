@@ -1,5 +1,5 @@
 // Check that the clip is an MP4, with diagnostic exit codes for CI.
-const source = "https://assets.mixkit.co/videos/preview/mixkit-people-working-in-the-office-42617-large.mp4";
+const source = "https://videos.pexels.com/video-files/4629685/4629685-hd_1280_720_25fps.mp4";
 try {
  const response = await fetch(source, {headers: {Range:"bytes=0-1023"},signal:AbortSignal.timeout(25000)});
  if (!response.ok) { console.error("Media HTTP",response.status); process.exit(response.status===404?44:response.status===403?43:45); }
