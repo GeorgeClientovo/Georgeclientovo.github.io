@@ -311,3 +311,26 @@
  reduced.addEventListener('change', (event) => { if (event.matches) dismiss(); });
  launchTimer = window.setTimeout(() => { if (!reduced.matches) flight.hidden = false; }, 1500);
 })();
+
+/* Mouse hover, touch tap, and native keyboard activation all reveal the same biography. */
+(() => {
+ document.querySelectorAll('[data-founder-card]').forEach((card) => {
+  const front=card.querySelector('[data-founder-front]');
+  const back=card.querySelector('[data-founder-back]');
+  const copy=card.querySelector('[data-founder-copy]');
+  function setOpen(open){
+   card.classList.toggle('is-flipped',open);
+   card.setAttribute('aria-expanded',String(open));
+   front.setAttribute('aria-hidden',String(open));
+   back.setAttribute('aria-hidden',String(!open));
+   card.setAttribute('aria-label',card.dataset.founderName+', co-founder. '+(open?'Show photo':'Show background'));
+   if(open)card.setAttribute('aria-describedby',copy.id);
+   else card.removeAttribute('aria-describedby');
+  }
+  card.addEventListener('pointerenter',(event)=>{if(event.pointerType==='mouse')setOpen(true);});
+  card.addEventListener('pointerleave',(event)=>{if(event.pointerType==='mouse')setOpen(false);});
+  card.addEventListener('click',()=>setOpen(card.getAttribute('aria-expanded')!=='true'));
+  card.addEventListener('blur',()=>setOpen(false));
+  card.addEventListener('keydown',(event)=>{if(event.key==='Escape')setOpen(false);});
+ });
+})();
