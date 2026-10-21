@@ -194,3 +194,28 @@ label{color:#c2d0ed;font-size:.8125rem}.form-privacy{color:#9caed0}
  .portal-demo-feature .demo-play small{font-size:.625rem}
  .portal-demo-feature .demo-caption{font-size:.625rem;padding:12px;flex-direction:column;gap:3px}
 }
+
+/* A real report format gives the handover a concrete, inspectable example. */
+.handover-section{border-bottom:1px solid #1b253b;padding-block:72px}
+.handover-layout{display:grid;grid-template-columns:1.05fr 1fr;gap:72px;align-items:center}
+.handover-copy h2{font-size:clamp(2rem,3.8vw,2.8rem);line-height:1.15;margin-bottom:20px;max-width:15ch}
+.handover-copy .lede{font-size:1.0625rem;color:#b8c5df}
+.handover-contents{padding:0;margin:28px 0;list-style:none}
+.handover-contents li{padding:15px 0;border-top:1px solid #26324a}
+.handover-contents strong{display:block;color:#e3eaf8;font-size:.9375rem;margin-bottom:4px}
+.handover-contents li>span{display:block;color:#aab8d6;font-size:.875rem;line-height:1.65}
+.handover-disclosure{font-size:.6875rem;line-height:1.6;color:#94a4c4;max-width:440px;margin-top:16px}
+.handover-example{margin:0;width:100%;max-width:420px;justify-self:end}
+.handover-example>a{position:relative;display:block;background:#fff;border:1px solid #4b6088;border-radius:12px;overflow:hidden;box-shadow:0 18px 48px #0004}
+.handover-example>a:focus-visible{outline:3px solid #9cbbff;outline-offset:5px}
+.handover-example img{display:block;width:100%;height:auto;aspect-ratio:5/6;object-fit:cover;object-position:top}
+.handover-preview-label{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;background:#10203b;color:#e1eaff;font-size:.8125rem}
+.handover-example figcaption{font-size:.6875rem;color:#94a4c4;padding-top:12px;line-height:1.6}
+.founder-profile{min-width:0}
+.founder-profile-label{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:4px 10px;padding:14px 2px 0}
+.founder-profile-label>strong{font-family:Nacelle,Arial,sans-serif;font-weight:600;font-size:.9375rem;color:#edf2ff}
+.founder-read{border:0;border-bottom:1px solid #6b87c166;padding:2px 0;background:transparent;color:#b8caff;font:inherit;font-size:.6875rem;line-height:1.6;text-align:left;cursor:pointer;min-height:30px}
+.founder-read:hover{color:#e4ecff;border-bottom-color:#a6beff}
+.founder-read:focus-visible{outline:2px solid #9cbbff;outline-offset:4px}
+@media(max-width:800px){.handover-layout{gap:36px}.handover-copy .button{font-size:.8125rem;padding-inline:14px}}
+@media(max-width:650px){.handover-section{padding-block:56px}.handover-layout{grid-template-columns:1fr;gap:28px}.handover-example{justify-self:center;max-width:380px}.handover-copy h2{max-width:none}.founder-profile-label{display:block;padding-top:10px}.founder-read{display:block;margin-top:3px}.handover-copy .button{width:100%;justify-content:space-between}}
