@@ -171,3 +171,26 @@ label{color:#c2d0ed;font-size:.8125rem}.form-privacy{color:#9caed0}
 @media(prefers-reduced-motion:reduce){.founder-card-inner{transition:none}}
 
 @media(max-width:360px){.founder-portraits{grid-template-columns:1fr;max-width:280px}}
+
+/* Put the real portal demonstration at the centre of the homepage. */
+.portal-demo-feature{position:relative;margin-top:48px}
+.demo-intro{text-align:center;margin:0 auto 24px;max-width:680px}
+.demo-intro h2{font-size:clamp(1.6rem,3vw,2.25rem);line-height:1.2;color:#f1f5f9;margin:0 0 10px}
+.demo-intro p{margin:0;color:#b8c5df;font-size:.9375rem}
+.portal-demo-feature .open-demo{width:100%;background:#42567d;padding:1px;box-shadow:0 20px 65px #0005}
+.portal-demo-feature .open-demo::before{display:none}
+.portal-demo-feature .demo-launch>img{aspect-ratio:16/9;object-fit:contain;object-position:center;opacity:1;filter:none}
+.portal-demo-feature .demo-launch:hover>img{opacity:1}
+.portal-demo-feature .demo-launch:focus-visible{outline:3px solid #9cbbff;outline-offset:5px}
+.portal-demo-feature .demo-play{left:24px;bottom:24px;top:auto;transform:none;white-space:normal;padding:12px 18px 12px 12px;border:1px solid #6d8dc855;border-radius:14px;background:#071024f2;gap:14px;font-size:1rem;text-align:left}
+.portal-demo-feature .demo-play i{display:grid;place-items:center;flex:none;width:52px;height:52px;border-radius:50%;background:#255fe8;color:#fff;font-size:1.25rem;padding-left:3px}
+.portal-demo-feature .demo-play small{display:block;margin-top:3px;font-size:.75rem;color:#b8c9ec}
+.portal-demo-feature .demo-caption{font-size:.75rem;padding:16px 20px}
+@media(max-width:650px){
+ .portal-demo-feature{margin-top:36px}
+ .demo-intro{margin-bottom:20px}.demo-intro p{font-size:.8125rem;max-width:280px;margin:auto}
+ .portal-demo-feature .demo-play{left:12px;bottom:12px;padding:8px 12px 8px 8px;gap:10px;border-radius:10px;font-size:.75rem}
+ .portal-demo-feature .demo-play i{width:38px;height:38px;font-size:1rem}
+ .portal-demo-feature .demo-play small{font-size:.625rem}
+ .portal-demo-feature .demo-caption{font-size:.625rem;padding:12px;flex-direction:column;gap:3px}
+}

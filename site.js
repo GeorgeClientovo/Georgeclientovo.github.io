@@ -226,11 +226,13 @@
 (() => {
  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
  const modal = document.querySelector('[data-demo-dialog]');
- const launch = document.querySelector('[data-demo-open]');
+ const launches = [...document.querySelectorAll('[data-demo-open]')];
+ let lastLaunch = null;
  const close = document.querySelector('[data-demo-close]');
  const player = document.querySelector('[data-demo-video]');
- if (modal && launch && close && player) {
-  launch.addEventListener('click', () => {
+ if (modal && launches.length && close && player) {
+  launches.forEach((launch) => launch.addEventListener('click', () => {
+   lastLaunch = launch;
    if (typeof modal.showModal !== 'function') {
     window.location.assign('/media/portal-walkthrough-audio.mp4');
     return;
@@ -241,7 +243,7 @@
    player.muted = false;
    player.volume = 1;
    player.play().catch(() => {});
-  });
+  }));
   close.addEventListener('click', () => modal.close());
   modal.addEventListener('click', (event) => {
    if (event.target !== modal) return;
@@ -252,7 +254,7 @@
    player.pause();
    document.body.classList.remove('demo-open');
    document.dispatchEvent(new CustomEvent('clientovo:demo', { detail: { open: false } }));
-   launch.focus();
+   if (lastLaunch) lastLaunch.focus();
   });
  }
  const cards = [...document.querySelectorAll('.open-card')];
