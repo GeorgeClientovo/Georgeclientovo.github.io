@@ -221,7 +221,7 @@ label{color:#c2d0ed;font-size:.8125rem}.form-privacy{color:#9caed0}
 .promo-aircraft{position:relative;z-index:1}
 
 /* Founder portraits reveal short, verified biographies. */
-.founder-card{display:block;position:relative;width:100%;aspect-ratio:4/5;padding:0;border:1px solid #354563;border-radius:14px;background:#131e32;color:#f1f5f9;font:inherit;text-align:left;cursor:pointer;perspective:1000px;box-shadow:0 12px 32px #0003}
+.founder-card{display:block;position:relative;width:100%;min-height:320px;aspect-ratio:4/5;padding:0;border:1px solid #354563;border-radius:14px;background:#131e32;color:#f1f5f9;font:inherit;text-align:left;cursor:pointer;perspective:1000px;box-shadow:0 12px 32px #0003}
 .founder-card:focus-visible{outline:3px solid #8eafff;outline-offset:5px}
 .founder-card-inner{display:block;position:relative;width:100%;height:100%;border-radius:inherit;transform-style:preserve-3d;transition:transform .65s cubic-bezier(.22,.75,.25,1)}
 .founder-card.is-flipped .founder-card-inner{transform:rotateY(180deg)}
@@ -237,5 +237,7 @@ label{color:#c2d0ed;font-size:.8125rem}.form-privacy{color:#9caed0}
 .founder-name{display:block;margin:12px 0 18px;color:#f1f5f9;font-family:Nacelle,Arial,sans-serif;font-size:1.6rem;line-height:1.15}
 .founder-bio{display:block;color:#c9d3e9;font-size:.875rem;line-height:1.65}
 .founder-return{display:block;margin-top:auto;padding-top:18px;color:#a9bfff;font-size:.6875rem}
-@media(max-width:650px){.founder-card{border-radius:10px;min-height:250px}.founder-back{padding:18px}.founder-caption{bottom:14px;left:14px;right:14px}.founder-name{font-size:1.35rem;margin:10px 0 12px}.founder-bio{font-size:.75rem;line-height:1.55}.founder-caption small{font-size:.5625rem;margin-top:8px}.founder-return{padding-top:12px;font-size:.625rem}}
+@media(max-width:650px){.founder-card{border-radius:10px;min-height:320px}.founder-back{padding:18px}.founder-caption{bottom:14px;left:14px;right:14px}.founder-name{font-size:1.35rem;margin:10px 0 12px}.founder-bio{font-size:.75rem;line-height:1.55}.founder-caption small{font-size:.5625rem;margin-top:8px}.founder-return{padding-top:12px;font-size:.625rem}}
 @media(prefers-reduced-motion:reduce){.founder-card-inner{transition:none}}
+
+@media(max-width:360px){.founder-portraits{grid-template-columns:1fr;max-width:280px}}
