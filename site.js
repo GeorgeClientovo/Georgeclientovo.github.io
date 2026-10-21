@@ -136,3 +136,201 @@
     });
   }
 })();
+/* Silent background footage: pause when off-screen, and honour motion/data preferences. */
+(() => {
+ const video = document.querySelector('[data-hero-video]');
+ const toggle = document.querySelector('[data-hero-video-toggle]');
+ if (!video || !toggle) return;
+ const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+ const saveData = !!(navigator.connection && navigator.connection.saveData);
+ let userPaused = false;
+ let inView = true;
+ let failed = false;
+ let playingRequest = 0;
+ video.muted = true;
+ video.defaultMuted = true;
+ video.playsInline = true;
+ video.autoplay = !reduced.matches && !saveData;
+ toggle.hidden = reduced.matches;
+ function syncLabel() {
+  toggle.textContent = video.paused ? 'Play background video' : 'Pause background video';
+ }
+ async function start() {
+  if (failed || reduced.matches || userPaused || !inView || document.hidden || !video.paused || document.querySelector('[data-demo-dialog][open]')) return;
+  const request = ++playingRequest;
+  video.autoplay = !reduced.matches && !saveData;
+  video.preload = 'auto';
+  if (!video.getAttribute('src')) {
+   video.src = video.dataset.videoSrc;
+   video.load();
+  }
+  try {
+   await video.play();
+   if (request !== playingRequest || reduced.matches || userPaused || !inView || document.hidden) {
+    video.pause();
+   }
+   toggle.hidden = reduced.matches;
+   syncLabel();
+  } catch {
+   // Autoplay restrictions keep the dark fallback and allow a manual play.
+   toggle.hidden = reduced.matches || failed;
+   syncLabel();
+  }
+ }
+ function pause() {
+  video.autoplay = false;
+  playingRequest++;
+  video.pause();
+  syncLabel();
+ }
+ toggle.addEventListener('click', () => {
+  userPaused = !video.paused;
+  if (userPaused) pause();
+  else start();
+ });
+ video.addEventListener('canplay', () => { if (!saveData) start(); });
+ window.addEventListener('pageshow', () => { if (!saveData) start(); });
+ video.addEventListener('play',syncLabel);
+ video.addEventListener('pause',syncLabel);
+ video.addEventListener('error',() => {
+  failed = true;
+  pause();
+  video.hidden = true;
+  toggle.hidden = true;
+ });
+ if ('IntersectionObserver' in window) {
+  const observer = new window.IntersectionObserver(([entry]) => {
+   inView = entry.isIntersecting;
+   if (inView && !saveData) start();
+   else pause();
+  },{threshold:0});
+  observer.observe(video.closest('.agency-hero'));
+ }
+ document.addEventListener('visibilitychange',() => {
+  if (document.hidden) pause();
+  else if (!saveData) start();
+ });
+ if (reduced.addEventListener) reduced.addEventListener('change',() => {
+  if (reduced.matches) {pause();toggle.hidden=true;}
+  else if (!saveData) start();
+ });
+ if (!reduced.matches && saveData) {toggle.hidden=false;syncLabel();}
+ document.addEventListener('clientovo:demo', (event) => {
+  if (event.detail.open) pause();
+  else if (!saveData) start();
+ });
+ if (!saveData) start();
+})();
+
+/* Cruip Open interactions, without a framework dependency. */
+(() => {
+ const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+ const modal = document.querySelector('[data-demo-dialog]');
+ const launch = document.querySelector('[data-demo-open]');
+ const close = document.querySelector('[data-demo-close]');
+ const player = document.querySelector('[data-demo-video]');
+ if (modal && launch && close && player) {
+  launch.addEventListener('click', () => {
+   if (typeof modal.showModal !== 'function') {
+    window.location.assign('/media/portal-walkthrough-audio.mp4');
+    return;
+   }
+   modal.showModal();
+   document.body.classList.add('demo-open');
+   document.dispatchEvent(new CustomEvent('clientovo:demo', { detail: { open: true } }));
+   player.muted = false;
+   player.volume = 1;
+   player.play().catch(() => {});
+  });
+  close.addEventListener('click', () => modal.close());
+  modal.addEventListener('click', (event) => {
+   if (event.target !== modal) return;
+   const bounds = modal.getBoundingClientRect();
+   if (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom) modal.close();
+  });
+  modal.addEventListener('close', () => {
+   player.pause();
+   document.body.classList.remove('demo-open');
+   document.dispatchEvent(new CustomEvent('clientovo:demo', { detail: { open: false } }));
+   launch.focus();
+  });
+ }
+ const cards = [...document.querySelectorAll('.open-card')];
+ if (window.matchMedia('(hover: hover)').matches) {
+  cards.forEach((card) => card.addEventListener('pointermove', (event) => {
+   if (reduced.matches) return;
+   const rect = card.getBoundingClientRect();
+   card.style.setProperty('--pointer-x', (event.clientX - rect.left) + 'px');
+   card.style.setProperty('--pointer-y', (event.clientY - rect.top) + 'px');
+  }, { passive: true }));
+ }
+ let observer;
+ const animations = new Set();
+ function setupReveals() {
+  if (observer) observer.disconnect();
+  animations.forEach((animation) => animation.cancel());
+  animations.clear();
+  if (reduced.matches || !('IntersectionObserver' in window)) return;
+  observer = new window.IntersectionObserver((entries) => entries.forEach((entry) => {
+   if (!entry.isIntersecting) return;
+   observer.unobserve(entry.target);
+   if (entry.target.contains(document.activeElement) || typeof entry.target.animate !== 'function') return;
+   const siblings = entry.target.parentElement.children;
+   const stagger = entry.target.matches('.open-card, .open-feature') ? [...siblings].indexOf(entry.target) % 3 * 90 : 0;
+   const animation = entry.target.animate([{ opacity: .2, transform: 'translateY(24px)' }, { opacity: 1, transform: 'translateY(0)' }], { duration: 700, delay: stagger, easing: 'cubic-bezier(.22,1,.36,1)', fill: 'backwards' });
+   animations.add(animation);
+   animation.onfinish = animation.oncancel = () => animations.delete(animation);
+  }), { threshold: .08, rootMargin: '0px 0px -20px 0px' });
+  document.querySelectorAll('.open-section-heading, .open-card, .open-feature, .pricing-head, .price-card, .open-cta, .about-layout').forEach((element) => {
+   if (element.getBoundingClientRect().top >= window.innerHeight - 20) observer.observe(element);
+  });
+ }
+ document.addEventListener('focusin', (event) => {
+  animations.forEach((animation) => { if (animation.effect.target.contains(event.target)) animation.cancel(); });
+ });
+ if (reduced.addEventListener) reduced.addEventListener('change', setupReveals);
+ setupReveals();
+})();
+
+
+/* Launch once, 1.5 seconds after landing, then remove the announcement. */
+(() => {
+ const flight = document.querySelector('[data-promo-flight]');
+ if (!flight) return;
+ const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+ let launchTimer;
+ const dismiss = () => {
+  window.clearTimeout(launchTimer);
+  flight.remove();
+ };
+ if (reduced.matches) { dismiss(); return; }
+ flight.querySelector('[data-promo-dismiss]').addEventListener('click', dismiss);
+ flight.addEventListener('animationend', (event) => {
+  if (event.target === flight && event.animationName === 'promo-flyby') dismiss();
+ });
+ reduced.addEventListener('change', (event) => { if (event.matches) dismiss(); });
+ launchTimer = window.setTimeout(() => { if (!reduced.matches) flight.hidden = false; }, 1500);
+})();
+
+/* Mouse hover, touch tap, and native keyboard activation all reveal the same biography. */
+(() => {
+ document.querySelectorAll('[data-founder-card]').forEach((card) => {
+  const front=card.querySelector('[data-founder-front]');
+  const back=card.querySelector('[data-founder-back]');
+  const copy=card.querySelector('[data-founder-copy]');
+  function setOpen(open){
+   card.classList.toggle('is-flipped',open);
+   card.setAttribute('aria-expanded',String(open));
+   front.setAttribute('aria-hidden',String(open));
+   back.setAttribute('aria-hidden',String(!open));
+   card.setAttribute('aria-label',card.dataset.founderName+', co-founder. '+(open?'Show photo':'Show background'));
+   if(open)card.setAttribute('aria-describedby',copy.id);
+   else card.removeAttribute('aria-describedby');
+  }
+  card.addEventListener('pointerenter',(event)=>{if(event.pointerType==='mouse')setOpen(true);});
+  card.addEventListener('pointerleave',(event)=>{if(event.pointerType==='mouse')setOpen(false);});
+  card.addEventListener('click',()=>setOpen(card.getAttribute('aria-expanded')!=='true'));
+  card.addEventListener('blur',()=>setOpen(false));
+  card.addEventListener('keydown',(event)=>{if(event.key==='Escape')setOpen(false);});
+ });
+})();
