@@ -227,7 +227,7 @@ label{color:#c2d0ed;font-size:.8125rem}.form-privacy{color:#9caed0}
 .founder-card.is-flipped .founder-card-inner{transform:rotateY(180deg)}
 .founder-face{display:block;position:absolute;inset:0;border-radius:inherit;overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden}
 .founder-portraits .founder-card img{height:100%;aspect-ratio:auto;border:0;border-radius:inherit;box-shadow:none}
-.founder-front::after{content:"";position:absolute;inset:35% 0 0;background:linear-gradient(transparent,#030712e8);pointer-events:none}
+.founder-front{transform:rotateY(0deg)}
 .founder-caption{display:block;position:absolute;bottom:18px;left:18px;right:18px;z-index:1}
 .founder-caption strong{display:block;color:#fff;font-family:Nacelle,Arial,sans-serif;font-size:1.25rem;line-height:1.2}
 .founder-caption>span{display:block;font-size:.75rem;color:#d0dbf3;margin-top:4px}
