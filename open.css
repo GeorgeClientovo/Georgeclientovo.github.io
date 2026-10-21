@@ -208,7 +208,7 @@ label{color:#c2d0ed;font-size:.8125rem}.form-privacy{color:#9caed0}
 .handover-example{margin:0;width:100%;max-width:420px;justify-self:end}
 .handover-example>a{position:relative;display:block;background:#fff;border:1px solid #4b6088;border-radius:12px;overflow:hidden;box-shadow:0 18px 48px #0004}
 .handover-example>a:focus-visible{outline:3px solid #9cbbff;outline-offset:5px}
-.handover-example img{display:block;width:100%;height:auto;aspect-ratio:5/6;object-fit:cover;object-position:top}
+.handover-example img{display:block;width:100%;height:auto;aspect-ratio:auto;object-fit:contain}
 .handover-preview-label{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;background:#10203b;color:#e1eaff;font-size:.8125rem}
 .handover-example figcaption{font-size:.6875rem;color:#94a4c4;padding-top:12px;line-height:1.6}
 .founder-profile{min-width:0}
