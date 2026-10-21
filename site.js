@@ -293,25 +293,6 @@
 })();
 
 
-/* Launch once, 1.5 seconds after landing, then remove the announcement. */
-(() => {
- const flight = document.querySelector('[data-promo-flight]');
- if (!flight) return;
- const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
- let launchTimer;
- const dismiss = () => {
-  window.clearTimeout(launchTimer);
-  flight.remove();
- };
- if (reduced.matches) { dismiss(); return; }
- flight.querySelector('[data-promo-dismiss]').addEventListener('click', dismiss);
- flight.addEventListener('animationend', (event) => {
-  if (event.target === flight && event.animationName === 'promo-flyby') dismiss();
- });
- reduced.addEventListener('change', (event) => { if (event.matches) dismiss(); });
- launchTimer = window.setTimeout(() => { if (!reduced.matches) flight.hidden = false; }, 1500);
-})();
-
 /* Mouse hover, touch tap, and native keyboard activation all reveal the same biography. */
 (() => {
  document.querySelectorAll('[data-founder-card]').forEach((card) => {
