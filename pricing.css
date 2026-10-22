@@ -1,0 +1,11 @@
+/* Pricing reuses the site's existing cards, type and responsive grid. */
+.pricing-section{scroll-margin-top:110px}
+.pricing-section .pricing-head .kicker{color:#9aafe1;margin-bottom:14px}
+.pricing-section .price-card{display:flex;flex-direction:column;min-width:0}
+.pricing-section .plan-name{margin:0}
+.pricing-section .price{display:flex;align-items:baseline;flex-wrap:wrap;gap:10px}
+.pricing-section .price small{line-height:1.6}
+.pricing-section .clean-list{color:#cad6f2;font-size:.875rem;flex:1}
+.pricing-section .price-card .button{margin-top:auto;gap:8px}
+.pricing-section .price-note strong{color:#e2eaff}
+@media(max-width:650px){.pricing-section .price-card .button{padding-inline:12px;font-size:.8125rem}.pricing-section .price{font-size:3rem}}
