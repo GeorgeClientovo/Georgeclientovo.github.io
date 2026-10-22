@@ -680,3 +680,6 @@ input,select,textarea{border-radius:0;background:var(--surface)}
 .agency-hero .hero-caption{margin-top:24px}
 @media(prefers-reduced-motion:reduce){.hero-video,.hero-video-shade,.hero-video-tools{display:none}}
 @media print{.hero-video,.hero-video-shade,.hero-video-tools{display:none}}
+
+
+.demo-tour{padding:clamp(20px,4vw,48px);max-width:760px;margin:auto}.demo-tour [data-demo-step]{min-height:220px}.demo-tour h3{font-size:clamp(24px,4vw,40px);line-height:1.15}.demo-tour .inline-actions{margin-top:24px}

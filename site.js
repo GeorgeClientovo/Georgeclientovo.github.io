@@ -143,20 +143,42 @@
  const launches = [...document.querySelectorAll('[data-demo-open]')];
  let lastLaunch = null;
  const close = document.querySelector('[data-demo-close]');
- const player = document.querySelector('[data-demo-video]');
- if (modal && launches.length && close && player) {
+ const tour = document.querySelector('[data-demo-tour]');
+ const step = document.querySelector('[data-demo-step]');
+ const next = document.querySelector('[data-demo-next]');
+ const back = document.querySelector('[data-demo-back]');
+ const steps = [
+  ['Agency','Create your template','Example Agency asks for business goals, a website link and a brand image. Choose the questions your client needs to answer.'],
+  ['Agency','Submit your client request','Enter Alex Example, Example Company and alex@example.com, then select your template. In this example, staff start the onboarding and send the client a private link.'],
+  ['Client','Provide and confirm answers','Alex opens the private link, answers the questions and uploads brand.png. Saving a draft is separate from confirming an answer. Missing items stay visible.'],
+  ['Staff','Review and resolve corrections','The team reviews the answers and files, requests any corrections, and approves the completed responses. Reaching 100% alone does not publish a pack.'],
+  ['Agency','Handover published','Success: the reviewed example pack is available in the agency portal, with a report and attachments. The client form is closed. This demonstration has not created records or sent email.']
+ ];
+ let current = 0;
+ function showStep() {
+  const [actor,title,description] = steps[current];
+  step.replaceChildren();
+  for (const [tag,text] of [['p',`Step ${current + 1} of ${steps.length} · ${actor}`],['h3',title],['p',description]]) { const element=document.createElement(tag); element.textContent=text; step.append(element); }
+  back.disabled=current===0;
+  next.textContent=current===steps.length-1?'Restart example':'Next step';
+ }
+ if (tour && step && next && back) {
+  next.addEventListener('click',()=>{current=(current+1)%steps.length;showStep();});
+  back.addEventListener('click',()=>{current=Math.max(0,current-1);showStep();});
+ }
+
+ if (modal && launches.length && close && tour) {
   launches.forEach((launch) => launch.addEventListener('click', () => {
    lastLaunch = launch;
    if (typeof modal.showModal !== 'function') {
-    window.location.assign('/media/portal-walkthrough-audio.mp4');
+    window.location.assign('/how-it-works.html');
     return;
    }
    modal.showModal();
    document.body.classList.add('demo-open');
    document.dispatchEvent(new CustomEvent('clientovo:demo', { detail: { open: true } }));
-   player.muted = false;
-   player.volume = 1;
-   player.play().catch(() => {});
+   current=0;showStep();
+   close.focus();
   }));
   close.addEventListener('click', () => modal.close());
   modal.addEventListener('click', (event) => {
@@ -165,7 +187,7 @@
    if (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom) modal.close();
   });
   modal.addEventListener('close', () => {
-   player.pause();
+
    document.body.classList.remove('demo-open');
    document.dispatchEvent(new CustomEvent('clientovo:demo', { detail: { open: false } }));
    if (lastLaunch) lastLaunch.focus();
@@ -234,3 +256,4 @@
   card.addEventListener('keydown',(event)=>{if(event.key==='Escape')setOpen(false);});
  });
 })();
+
