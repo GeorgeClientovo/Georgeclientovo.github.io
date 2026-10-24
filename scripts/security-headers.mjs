@@ -36,7 +36,8 @@ for(const name of pages){
 const config={$schema:'https://openapi.vercel.sh/vercel.json',buildCommand:'node scripts/security-headers.mjs --check',outputDirectory:'.',cleanUrls:false,headers};
 const expected=JSON.stringify(config,null,2)+'\n';
 if(process.argv.includes('--check')){
- assert.equal(await readFile(new URL('vercel.json',root),'utf8'),expected,'Run node scripts/security-headers.mjs after editing a page policy');
+ // Vercel normalizes/minifies this file before invoking the build command.
+ assert.deepEqual(JSON.parse(await readFile(new URL('vercel.json',root),'utf8')),config,'Run node scripts/security-headers.mjs after editing a page policy');
  console.log(`Verified response policies and inline hashes for ${pages.length} HTML pages.`);
 }else{
  await writeFile(new URL('vercel.json',root),expected);
