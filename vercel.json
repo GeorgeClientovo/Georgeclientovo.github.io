@@ -1,0 +1,118 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "node scripts/security-headers.mjs --check",
+  "outputDirectory": ".",
+  "cleanUrls": false,
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "Strict-Transport-Security",
+          "value": "max-age=31536000"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(), microphone=(), geolocation=()"
+        },
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; media-src 'self'; connect-src 'self' https://formspree.io; form-action https://formspree.io; object-src 'none'; base-uri 'self'; frame-src 'none'; upgrade-insecure-requests; frame-ancestors 'none'"
+        }
+      ]
+    },
+    {
+      "source": "/404.html",
+      "headers": [
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self'; script-src 'self' ; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; media-src 'self'; connect-src 'self' https://formspree.io; form-action https://formspree.io; object-src 'none'; base-uri 'self'; frame-src 'none'; upgrade-insecure-requests; frame-ancestors 'none'"
+        }
+      ]
+    },
+    {
+      "source": "/client-onboarding-checklist.html",
+      "headers": [
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self'; script-src 'self' 'sha256-DKQ/rZvQjE7o1f99ePHJh2FSx1BbFKJx48Uy7Gc1wFY='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; media-src 'self'; connect-src 'self' https://formspree.io; form-action https://formspree.io; object-src 'none'; base-uri 'self'; frame-src 'none'; upgrade-insecure-requests; frame-ancestors 'none'"
+        }
+      ]
+    },
+    {
+      "source": "/client-onboarding-for-marketing-agencies.html",
+      "headers": [
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self'; script-src 'self' 'sha256-eMTmxKQDW5P+if88cw6ybRzaDn/EFVFQtui9CUfJgaE='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; media-src 'self'; connect-src 'self' https://formspree.io; form-action https://formspree.io; object-src 'none'; base-uri 'self'; frame-src 'none'; upgrade-insecure-requests; frame-ancestors 'none'"
+        }
+      ]
+    },
+    {
+      "source": "/client-onboarding-forms-vs-managed-service.html",
+      "headers": [
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self'; script-src 'self' 'sha256-oYBtZYF0UydsDg4uWQxJ7GD3yBHlybZdYugDb0zk2RE='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; media-src 'self'; connect-src 'self' https://formspree.io; form-action https://formspree.io; object-src 'none'; base-uri 'self'; frame-src 'none'; upgrade-insecure-requests; frame-ancestors 'none'"
+        }
+      ]
+    },
+    {
+      "source": "/contact.html",
+      "headers": [
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self'; script-src 'self' ; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; media-src 'self'; connect-src 'self' https://formspree.io; form-action https://formspree.io; object-src 'none'; base-uri 'self'; frame-src 'none'; upgrade-insecure-requests; frame-ancestors 'none'"
+        }
+      ]
+    },
+    {
+      "source": "/how-it-works.html",
+      "headers": [
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self'; script-src 'self' 'sha256-B+y5m+qeIaY5HjXzo8P5JhKa0GHT2pg8E51/xVGkXvc='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; media-src 'self'; connect-src 'self' https://formspree.io; form-action https://formspree.io; object-src 'none'; base-uri 'self'; frame-src 'none'; upgrade-insecure-requests; frame-ancestors 'none'"
+        }
+      ]
+    },
+    {
+      "source": "/index.html",
+      "headers": [
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self'; script-src 'self' 'sha256-9Y9CoTxpxtDft2DlJXxTfStvCm/svCckwIeYMW3FVqM='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; media-src 'self'; connect-src 'self' https://formspree.io; form-action https://formspree.io; object-src 'none'; base-uri 'self'; frame-src 'none'; upgrade-insecure-requests; frame-ancestors 'none'"
+        }
+      ]
+    },
+    {
+      "source": "/",
+      "headers": [
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self'; script-src 'self' 'sha256-9Y9CoTxpxtDft2DlJXxTfStvCm/svCckwIeYMW3FVqM='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; media-src 'self'; connect-src 'self' https://formspree.io; form-action https://formspree.io; object-src 'none'; base-uri 'self'; frame-src 'none'; upgrade-insecure-requests; frame-ancestors 'none'"
+        }
+      ]
+    },
+    {
+      "source": "/privacy-and-security.html",
+      "headers": [
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self'; script-src 'self' ; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; media-src 'self'; connect-src 'self' https://formspree.io; form-action https://formspree.io; object-src 'none'; base-uri 'self'; frame-src 'none'; upgrade-insecure-requests; frame-ancestors 'none'"
+        }
+      ]
+    }
+  ]
+}
