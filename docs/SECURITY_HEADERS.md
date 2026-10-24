@@ -9,7 +9,7 @@ The public domain was hosted on GitHub Pages when this work started on 24 Octobe
 - HTML retains its existing page-specific CSP script hashes, same-origin resources, styles and Formspree enquiry destination. The HTTP policy adds `frame-ancestors 'none'` to prevent framing.
 - All responses use `X-Frame-Options: DENY`, `X-Content-Type-Options: nosniff`, `Referrer-Policy: strict-origin-when-cross-origin`, and disable camera, microphone and geolocation.
 - HSTS is one year for this hostname only. Do not add includeSubDomains or preload without separately reviewing the app, scanner and other subdomains.
-- Non-HTML resources use a restrictive default CSP. Images, fonts, styles, scripts and the example PDF remain directly accessible; they are not intended for third-party framing.
+- Unknown paths and non-HTML resources use a fallback CSP that permits the custom 404 page's local CSS, images and site.js, without inline script permission. Images, fonts, styles, scripts and the example PDF remain directly accessible; they are not intended for third-party framing.
 - HTML meta policies remain as protection for the parallel GitHub Pages deployment. HTTP and meta policies are both enforced, so keep their script hashes in sync.
 
 Vercel runs the policy check during each build. After editing HTML or an inline script, update its meta policy hash, then run:

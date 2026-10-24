@@ -14,7 +14,9 @@ const common=[
  {key:'Strict-Transport-Security',value:'max-age=31536000'},
  {key:'Permissions-Policy',value:'camera=(), microphone=(), geolocation=()'}
 ];
-const baseline="default-src 'none'; frame-ancestors 'none'; object-src 'none'; base-uri 'none'; form-action 'none'";
+// Missing paths serve the site's custom 404 HTML, so the fallback must still
+// permit its local CSS, images and external site.js (but no inline scripts).
+const baseline="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; media-src 'self'; connect-src 'self' https://formspree.io; form-action https://formspree.io; object-src 'none'; base-uri 'self'; frame-src 'none'; upgrade-insecure-requests; frame-ancestors 'none'";
 const headers=[{source:'/(.*)',headers:[...common,{key:'Content-Security-Policy',value:baseline}]}];
 const pages=(await readdir(root)).filter(name=>name.endsWith('.html')).sort();
 for(const name of pages){
