@@ -28,9 +28,9 @@
 <meta name="twitter:description" content="Clientovo collects client details and files, follows up on missing items and reviews your handover.">
 <meta name="twitter:image" content="https://clientovo.com/og-image.png">
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://clientovo.com/#organization","name":"Clientovo","url":"https://clientovo.com/","email":"contact@clientovo.com"},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What does the free onboarding include?","acceptedAnswer":{"@type":"Answer","text":"One real client onboarding using your agency’s template, including collection, follow-ups, review and handover. Your new account includes one free credit. No card is needed, and you won’t be enrolled in a paid subscription."}},{"@type":"Question","name":"How is this different from a form?","acceptedAnswer":{"@type":"Answer","text":"Your portal gives you a place to create templates and track clients. Our team handles the work around the form: collecting information, following up, reviewing responses and organising the finished pack."}},{"@type":"Question","name":"Can we use our own questions and requirements?","acceptedAnswer":{"@type":"Answer","text":"Yes. Create reusable templates for the information, files and account access details your agency needs. Use a different template for each kind of project. Do not request passwords through an onboarding form."}},{"@type":"Question","name":"Do we keep control of the client relationship?","acceptedAnswer":{"@type":"Answer","text":"Yes. Your agency owns the relationship and delivers the project. We handle the onboarding admin you ask us to manage, and you can track progress in your portal."}},{"@type":"Question","name":"When is onboarding complete, and how do we get the pack?","acceptedAnswer":{"@type":"Answer","text":"An onboarding is ready for handover once the required information has been supplied and our team has reviewed and approved the answers and files. We then publish the pack in your portal and email your agency a link. Reaching 100% alone does not send the handover automatically."}},{"@type":"Question","name":"How often do you follow up with clients?","acceptedAnswer":{"@type":"Answer","text":"Our standard reminder interval is three days, measured from the latest response or reminder while required information is still missing. Our team can adjust or pause reminders for an onboarding."}},{"@type":"Question","name":"What happens if a client stops responding?","acceptedAnswer":{"@type":"Answer","text":"After seven days without a new answer, the onboarding is flagged for our team’s attention. Outstanding items stay visible in your portal. Missing required information is not treated as complete."}},{"@type":"Question","name":"How long does an onboarding take?","acceptedAnswer":{"@type":"Answer","text":"Timing depends on how quickly your client provides the required information and whether any answers or files need correcting. You can track progress in your portal while we manage the follow-ups and review."}}]}]}</script>
-<script src="/site.js?v=20261022-readiness" defer></script>
+<script src="/site.js?v=20261027-savings" defer></script>
 <link rel="stylesheet" href="/open.css?v=20261021-expanded-sample1">
-<link rel="stylesheet" href="/pricing.css?v=20261022-launch">
+<link rel="stylesheet" href="/pricing.css?v=20261027-savings">
 </head><body><a class="skip-link" href="#main">Skip to content</a>
 <header class="site-header">
   <nav class="shell site-nav" aria-label="Main navigation">
@@ -110,6 +110,33 @@
         <a class="button" href="https://app.clientovo.com/agency/join">Try your first onboarding free</a>
       </article>
     </div>
+    <section class="pricing-calculator" aria-labelledby="calculator-heading" data-pricing-calculator>
+      <div class="calculator-intro">
+        <p class="kicker">Compare your costs</p>
+        <h3 id="calculator-heading">How many clients do you onboard each month?</h3>
+        <p>Move the slider to compare pay as you go with the monthly plan.</p>
+      </div>
+      <div class="calculator-control">
+        <div class="calculator-value"><output for="onboarding-volume" data-onboarding-count>5</output><span>client onboardings</span></div>
+        <label class="sr-only" for="onboarding-volume">Client onboardings each month</label>
+        <input id="onboarding-volume" data-onboarding-slider type="range" min="1" max="20" value="5" step="1">
+        <div class="calculator-scale" aria-hidden="true"><span>1</span><span>20+</span></div>
+      </div>
+      <div class="calculator-results" aria-live="polite">
+        <div class="calculator-result">
+          <span>Pay as you go</span>
+          <strong data-payg-total>£70</strong>
+          <small data-payg-detail>5 × £14</small>
+        </div>
+        <div class="calculator-result calculator-result-featured">
+          <span>Monthly plan</span>
+          <strong data-monthly-total>£34</strong>
+          <small data-monthly-detail>5 included</small>
+        </div>
+        <p class="calculator-saving" data-saving-message><strong>Save £36 each month</strong> with the monthly plan.</p>
+      </div>
+      <p class="calculator-footnote">The monthly plan includes five onboardings. Additional onboardings are £9 each. Unused monthly credits do not roll over.</p>
+    </section>
     <p class="price-note"><strong>Your first real onboarding is free.</strong> No card details and no automatic subscription. One credit covers one client onboarding.</p>
   </div>
 </section>

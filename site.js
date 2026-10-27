@@ -257,3 +257,40 @@
  });
 })();
 
+
+
+/* Pricing comparison: £14 pay as you go versus £34/month for five, then £9 each. */
+(() => {
+ const root=document.querySelector('[data-pricing-calculator]');
+ if(!root)return;
+ const slider=root.querySelector('[data-onboarding-slider]');
+ const count=root.querySelector('[data-onboarding-count]');
+ const paygTotal=root.querySelector('[data-payg-total]');
+ const paygDetail=root.querySelector('[data-payg-detail]');
+ const monthlyTotal=root.querySelector('[data-monthly-total]');
+ const monthlyDetail=root.querySelector('[data-monthly-detail]');
+ const savingMessage=root.querySelector('[data-saving-message]');
+ if(!slider||!count||!paygTotal||!paygDetail||!monthlyTotal||!monthlyDetail||!savingMessage)return;
+ const money=(value)=>'£'+value.toLocaleString('en-GB');
+ function update(){
+  const clients=Number(slider.value);
+  const payg=clients*14;
+  const extras=Math.max(0,clients-5);
+  const monthly=34+(extras*9);
+  const difference=Math.abs(payg-monthly);
+  const progress=((clients-Number(slider.min))/(Number(slider.max)-Number(slider.min)))*100;
+  slider.style.setProperty('--range-progress',progress+'%');
+  count.value=clients;
+  count.textContent=clients;
+  paygTotal.textContent=money(payg);
+  paygDetail.textContent=clients+' × £14';
+  monthlyTotal.textContent=money(monthly);
+  monthlyDetail.textContent=extras?('£34 + '+extras+' × £9'):'Up to 5 included';
+  savingMessage.classList.toggle('is-payg',payg<monthly);
+  if(monthly<payg)savingMessage.innerHTML='<strong>Save '+money(difference)+' each month</strong> with the monthly plan.';
+  else if(payg<monthly)savingMessage.innerHTML='<strong>Save '+money(difference)+' this month</strong> with pay as you go.';
+  else savingMessage.innerHTML='<strong>Both options cost the same</strong> at this volume.';
+ }
+ slider.addEventListener('input',update);
+ update();
+})();
