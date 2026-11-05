@@ -244,7 +244,7 @@
    if(read){read.setAttribute('aria-expanded',String(open));read.textContent=open?'Show photo ↶':'Read background →';}
    front.setAttribute('aria-hidden',String(open));
    back.setAttribute('aria-hidden',String(!open));
-   card.setAttribute('aria-label',card.dataset.founderName+', co-founder. '+(open?'Show photo':'Show background'));
+   card.setAttribute('aria-label',card.dataset.founderName+', Clientovo co-founder. '+(open?'Back to photo':'Show background'));
    if(open)card.setAttribute('aria-describedby',copy.id);
    else card.removeAttribute('aria-describedby');
   }
