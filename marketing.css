@@ -180,7 +180,7 @@ input, select, textarea { border-radius: 6px; }
 @media(max-width:650px){.founder-card{border-radius:10px;min-height:320px}.founder-back{padding:18px}.founder-caption{bottom:14px;left:14px;right:14px}.founder-name{font-size:1.35rem;margin:10px 0 12px}.founder-bio{font-size:.75rem;line-height:1.55}.founder-caption small{font-size:.5625rem;margin-top:8px}.founder-return{padding-top:12px;font-size:.625rem}}
 @media(prefers-reduced-motion:reduce){.founder-card-inner{transition:none}}
 
-@media(max-width:360px){.founder-portraits{grid-template-columns:1fr;max-width:280px}}
+@media(max-width:380px){.founder-portraits{grid-template-columns:1fr;max-width:280px}}
 .founder-profile{min-width:0}
 .founder-profile-label{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:4px 10px;padding:14px 2px 0}
 .founder-profile-label>strong{font-family:Nacelle,Arial,sans-serif;font-weight:600;font-size:.9375rem;color:var(--ink)}
@@ -192,3 +192,10 @@ input, select, textarea { border-radius: 6px; }
 /* Keep the reverse face out of the visible label until the biography opens. */
 .founder-card:not(.is-flipped) .founder-back,
 .founder-card.is-flipped .founder-front { visibility: hidden; }
+
+@media (max-width: 900px) {
+  .about-layout { grid-template-columns: 1fr; }
+}
+@media (min-width: 901px) and (max-width: 1280px) {
+  .founder-card { min-height: 400px; }
+}
